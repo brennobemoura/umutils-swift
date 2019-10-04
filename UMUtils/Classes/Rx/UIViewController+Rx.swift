@@ -11,7 +11,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-extension Reactive where Base: UIViewController {
+public extension Reactive where Base: UIViewController {
 
   var viewDidLoad: Observable<Void> {
     return self.sentMessage(#selector(Base.viewDidLoad)).map { _ in Void() }
