@@ -95,7 +95,7 @@ public extension EmptyView {
         let action: Selector
         let event: UIControl.Event
         
-        init(_ sender: Any?, action: Selector, for event: UIControl.Event) {
+        public init(_ sender: Any?, action: Selector, for event: UIControl.Event) {
             self.sender = sender
             self.action = action
             self.event = event
