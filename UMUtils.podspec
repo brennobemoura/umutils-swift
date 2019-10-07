@@ -56,6 +56,7 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/View/**/*.swift'
 
       ss.dependency 'SnapKit'
+      ss.dependency 'UIContainer'
       ss.platform = :ios, '10.0'
   end
 
