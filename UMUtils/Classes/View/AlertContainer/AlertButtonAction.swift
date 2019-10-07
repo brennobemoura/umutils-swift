@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 public extension AlertButton {
-    class Action {
+    open class Action {
         let title: String?
         let handler: ((Action) -> Void)?
         public let style: UIAlertAction.Style

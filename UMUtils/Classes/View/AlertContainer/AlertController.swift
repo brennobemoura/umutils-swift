@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import UIContainer
 
-final class AlertController<AlertView: MercadoON.AlertView>: UIViewController {
+final public class AlertController<AlertView: UMUtils.AlertView>: UIViewController {
     weak var container: ContainerView<AlertView>!
     
     // MARK: Background Blur
@@ -37,7 +37,7 @@ final class AlertController<AlertView: MercadoON.AlertView>: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnBackground))
@@ -45,7 +45,7 @@ final class AlertController<AlertView: MercadoON.AlertView>: UIViewController {
         self.view.addGestureRecognizer(tapGesture)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if self.container.view.useBlur {
@@ -65,7 +65,7 @@ final class AlertController<AlertView: MercadoON.AlertView>: UIViewController {
         
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         self.blurView?.removeFromSuperview()

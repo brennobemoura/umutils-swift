@@ -10,7 +10,7 @@ import Foundation
 import SnapKit
 import UIContainer
 
-public class AlertView: View {
+open class AlertView: View {
     private var stackView: UIStackView!
     private weak var spacer: Spacer!
     
@@ -25,7 +25,7 @@ public class AlertView: View {
         }
     }
     
-    func updateHeight(_ view: UIView!, height: CGFloat) {
+    public func updateHeight(_ view: UIView!, height: CGFloat) {
         view.snp.remakeConstraints { make in
             make.height.equalTo(height)
         }
@@ -172,7 +172,7 @@ public class AlertView: View {
     }
 
     // MARK: Position calculate the index for alertContainer
-    func position(for item: Int) -> Int {
+    private func position(for item: Int) -> Int {
         let array = [Any?]([
             self.imageView,
             self.titleLabel,
@@ -194,7 +194,7 @@ public class AlertView: View {
         return stackView
     }()
     
-    var actions: [UIView] {
+    public var actions: [UIView] {
         return self.stackView.arrangedSubviews
     }
 
@@ -217,7 +217,9 @@ public class AlertView: View {
     }
     
     open func rounder(actionView: UIView) -> Rounder {
-        return .init(actionView, radius: 4)
+        return Rounder(actionView, radius: 4)
+            .border(color: actionView.borderColor)
+            .border(width: actionView.borderWidth)
     }
 
     @objc
@@ -225,7 +227,7 @@ public class AlertView: View {
         self.parent.dismiss(animated: true)
     }
     
-    override public func prepare() {
+    override open func prepare() {
         super.prepare()
         
         let stack = UIStackView()
@@ -244,11 +246,11 @@ public class AlertView: View {
         
     }
     
-    var spacing: CGFloat {
+    open var spacing: CGFloat {
         return 16
     }
     
-    var margin: CGFloat {
+    open var margin: CGFloat {
         return spacing * 2
     }
     
@@ -279,11 +281,11 @@ public class AlertView: View {
         return AlertButton.Action.self
     }
     
-    var blurEffectStyle: UIBlurEffect.Style = .regular
+    open var blurEffectStyle: UIBlurEffect.Style = .regular
     
-    var useBlur: Bool = false
+    open var useBlur: Bool = false
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         self.applyPriorities()
     }
