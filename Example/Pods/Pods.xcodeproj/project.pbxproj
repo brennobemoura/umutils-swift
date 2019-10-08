@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C1BC43D234D3DAC00D96A55 /* MaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1BC43A234D3DAC00D96A55 /* MaskTextField.swift */; };
+		0C1BC43E234D3DAC00D96A55 /* NextTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1BC43B234D3DAC00D96A55 /* NextTextField.swift */; };
+		0C1BC43F234D3DAC00D96A55 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1BC43C234D3DAC00D96A55 /* String+Utils.swift */; };
 		0C1F06492345016700462EF1 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06352345016700462EF1 /* CLLocationManager+Rx.swift */; };
 		0C1F064A2345016700462EF1 /* UMProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06362345016700462EF1 /* UMProgressBar.swift */; };
 		0C1F064B2345016700462EF1 /* Rx+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06372345016700462EF1 /* Rx+Operators.swift */; };
@@ -82,6 +85,9 @@
 
 /* Begin PBXFileReference section */
 		01295FE17077A733B46172AEE5B99EE2 /* UMUtils-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UMUtils-prefix.pch"; sourceTree = "<group>"; };
+		0C1BC43A234D3DAC00D96A55 /* MaskTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskTextField.swift; sourceTree = "<group>"; };
+		0C1BC43B234D3DAC00D96A55 /* NextTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextTextField.swift; sourceTree = "<group>"; };
+		0C1BC43C234D3DAC00D96A55 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		0C1F06352345016700462EF1 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
 		0C1F06362345016700462EF1 /* UMProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UMProgressBar.swift; sourceTree = "<group>"; };
 		0C1F06372345016700462EF1 /* Rx+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+Operators.swift"; sourceTree = "<group>"; };
@@ -180,6 +186,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C1BC439234D3DAC00D96A55 /* TextFieldHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				0C1BC43A234D3DAC00D96A55 /* MaskTextField.swift */,
+				0C1BC43B234D3DAC00D96A55 /* NextTextField.swift */,
+				0C1BC43C234D3DAC00D96A55 /* String+Utils.swift */,
+			);
+			path = TextFieldHelpers;
+			sourceTree = "<group>";
+		};
 		0C1F06342345016700462EF1 /* Rx */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +204,7 @@
 				0C1F06372345016700462EF1 /* Rx+Operators.swift */,
 				0C1F06382345016700462EF1 /* ActivityIndicator.swift */,
 				0C1F95F92346AD35005E0B4C /* UIView+Rx.swift */,
+				0C1BC439234D3DAC00D96A55 /* TextFieldHelpers */,
 				0C1F06392345016700462EF1 /* AIFlatSwitch */,
 				0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */,
 				0C1F063C2345016700462EF1 /* MBProgressHUD */,
@@ -580,6 +597,7 @@
 				0C6CBF91234BEA3300F49216 /* AlertView.swift in Sources */,
 				0CC7CE95234509DE00F23145 /* UIFont+Variations.swift in Sources */,
 				0C1F06502345016700462EF1 /* Observable+ActivityIndicator.swift in Sources */,
+				0C1BC43F234D3DAC00D96A55 /* String+Utils.swift in Sources */,
 				0CC7CE9E234509DF00F23145 /* UIView+Border.swift in Sources */,
 				0C1F064D2345016700462EF1 /* AIFlatSwitch+Rx.swift in Sources */,
 				0C1F064F2345016700462EF1 /* MBProgressHUD+Rx.swift in Sources */,
@@ -591,10 +609,12 @@
 				0C6CBF8F234BEA3300F49216 /* AlertController.swift in Sources */,
 				0CC7CEA2234509DF00F23145 /* Date+Time.swift in Sources */,
 				0C1F06522345016700462EF1 /* UIControl+Rx.swift in Sources */,
+				0C1BC43D234D3DAC00D96A55 /* MaskTextField.swift in Sources */,
 				0CC7CE90234509DE00F23145 /* UIViewController+Storyboard.swift in Sources */,
 				0CC7CEA0234509DF00F23145 /* Double+Round.swift in Sources */,
 				0C1F06532345016700462EF1 /* EmptyView.swift in Sources */,
 				0CC7CE97234509DF00F23145 /* UIViewController+Preparation.swift in Sources */,
+				0C1BC43E234D3DAC00D96A55 /* NextTextField.swift in Sources */,
 				0CC7CEAF2345207F00F23145 /* ViewModelBindable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
