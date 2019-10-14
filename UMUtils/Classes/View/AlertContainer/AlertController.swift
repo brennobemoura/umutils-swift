@@ -51,7 +51,7 @@ extension AlertView {
     }
 }
 
-extension AlertView: ViewController {
+extension AlertView: ViewControllerType {
     public var content: ViewControllerMaker {
         .dynamic {
             $0.view.addSubview(AlertView.Container.init(in: $0, loadHandler: { self })) { maker, _ in
