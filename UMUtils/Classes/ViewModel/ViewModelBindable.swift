@@ -10,33 +10,38 @@ import Foundation
 
 public protocol ViewModelBindable: class {
     
-    associatedtype Model: ViewModel
+    associatedtype ViewModel: UMUtils.ViewModel
     
-    var viewModel: Model? { get set }
+    var viewModel: ViewModel! { get set }
     
-    func bindViewModel(viewModel: Model)
+    func bindViewModel(viewModel: ViewModel)
 }
 
+private let viewModelAssociated = ObjectAssociation<ViewModel>(policy: .OBJC_ASSOCIATION_RETAIN)
+
 extension ViewModelBindable {
-    
-    public var viewModel: Model? {
+
+    public var viewModel: ViewModel! {
         
         get {
-            return getAssociatedObject(object: self, key: &AssociatedKey)
+            return viewModelAssociated[self] as? ViewModel
         }
         
         set(newViewModel) {
-            if let viewModel = newViewModel {
-                setAssociatedObject(object: self, value: viewModel, key:
-                    &AssociatedKey, policy:
-                    objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
-                
-                registerBinding(viewModel: viewModel)
+            guard self.viewModel == nil else {
+                fatalError("[ViewModel] don't reset view models")
             }
+
+            guard let viewModel = newViewModel else {
+                fatalError("[ViewModel] don't init view model with nil values")
+            }
+
+            viewModelAssociated[self] = viewModel
+            registerBinding(viewModel: viewModel)
         }
     }
     
-    private func registerBinding(viewModel: Model) {
+    private func registerBinding(viewModel: ViewModel) {
         bindViewModel(viewModel: viewModel)
     }
     

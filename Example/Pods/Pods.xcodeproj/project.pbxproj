@@ -29,6 +29,18 @@
 		0C6CBF8F234BEA3300F49216 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6CBF8B234BEA3300F49216 /* AlertController.swift */; };
 		0C6CBF90234BEA3300F49216 /* AlertButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6CBF8C234BEA3300F49216 /* AlertButtonAction.swift */; };
 		0C6CBF91234BEA3300F49216 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6CBF8D234BEA3300F49216 /* AlertView.swift */; };
+		0C9246292377007D006DAB60 /* UIScrollView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9246282377007D006DAB60 /* UIScrollView+Rx.swift */; };
+		0C92464E23770F77006DAB60 /* Moya+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464323770F77006DAB60 /* Moya+Rx.swift */; };
+		0C92464F23770F77006DAB60 /* APIObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464423770F77006DAB60 /* APIObject.swift */; };
+		0C92465023770F77006DAB60 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464523770F77006DAB60 /* APIError.swift */; };
+		0C92465123770F77006DAB60 /* Error+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464623770F77006DAB60 /* Error+APIError.swift */; };
+		0C92465223770F77006DAB60 /* APIException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464723770F77006DAB60 /* APIException.swift */; };
+		0C92465323770F77006DAB60 /* APIArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464823770F77006DAB60 /* APIArray.swift */; };
+		0C92465423770F77006DAB60 /* IncludeParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464923770F77006DAB60 /* IncludeParameters.swift */; };
+		0C92465523770F77006DAB60 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464A23770F77006DAB60 /* APIResult.swift */; };
+		0C92465623770F77006DAB60 /* MetaPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464B23770F77006DAB60 /* MetaPageModel.swift */; };
+		0C92465723770F77006DAB60 /* MetaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464C23770F77006DAB60 /* MetaPage.swift */; };
+		0C92465823770F77006DAB60 /* Moya+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */; };
 		0CC7CE8B234509DE00F23145 /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */; };
 		0CC7CE8C234509DE00F23145 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE67234509DE00F23145 /* GradientView.swift */; };
 		0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE69234509DE00F23145 /* DatePicker.swift */; };
@@ -107,6 +119,18 @@
 		0C6CBF8B234BEA3300F49216 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		0C6CBF8C234BEA3300F49216 /* AlertButtonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertButtonAction.swift; sourceTree = "<group>"; };
 		0C6CBF8D234BEA3300F49216 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		0C9246282377007D006DAB60 /* UIScrollView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Rx.swift"; sourceTree = "<group>"; };
+		0C92464323770F77006DAB60 /* Moya+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Rx.swift"; sourceTree = "<group>"; };
+		0C92464423770F77006DAB60 /* APIObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIObject.swift; sourceTree = "<group>"; };
+		0C92464523770F77006DAB60 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		0C92464623770F77006DAB60 /* Error+APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+APIError.swift"; sourceTree = "<group>"; };
+		0C92464723770F77006DAB60 /* APIException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIException.swift; sourceTree = "<group>"; };
+		0C92464823770F77006DAB60 /* APIArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIArray.swift; sourceTree = "<group>"; };
+		0C92464923770F77006DAB60 /* IncludeParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncludeParameters.swift; sourceTree = "<group>"; };
+		0C92464A23770F77006DAB60 /* APIResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
+		0C92464B23770F77006DAB60 /* MetaPageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaPageModel.swift; sourceTree = "<group>"; };
+		0C92464C23770F77006DAB60 /* MetaPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaPage.swift; sourceTree = "<group>"; };
+		0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ObjectMapper.swift"; sourceTree = "<group>"; };
 		0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjects.swift; sourceTree = "<group>"; };
 		0CC7CE67234509DE00F23145 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0CC7CE69234509DE00F23145 /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
@@ -204,6 +228,7 @@
 				0C1F06372345016700462EF1 /* Rx+Operators.swift */,
 				0C1F06382345016700462EF1 /* ActivityIndicator.swift */,
 				0C1F95F92346AD35005E0B4C /* UIView+Rx.swift */,
+				0C9246282377007D006DAB60 /* UIScrollView+Rx.swift */,
 				0C1BC439234D3DAC00D96A55 /* TextFieldHelpers */,
 				0C1F06392345016700462EF1 /* AIFlatSwitch */,
 				0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */,
@@ -270,6 +295,25 @@
 				0C6CBF8D234BEA3300F49216 /* AlertView.swift */,
 			);
 			path = AlertContainer;
+			sourceTree = "<group>";
+		};
+		0C92464223770F77006DAB60 /* APIModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C92464323770F77006DAB60 /* Moya+Rx.swift */,
+				0C92464423770F77006DAB60 /* APIObject.swift */,
+				0C92464523770F77006DAB60 /* APIError.swift */,
+				0C92464623770F77006DAB60 /* Error+APIError.swift */,
+				0C92464723770F77006DAB60 /* APIException.swift */,
+				0C92464823770F77006DAB60 /* APIArray.swift */,
+				0C92464923770F77006DAB60 /* IncludeParameters.swift */,
+				0C92464A23770F77006DAB60 /* APIResult.swift */,
+				0C92464B23770F77006DAB60 /* MetaPageModel.swift */,
+				0C92464C23770F77006DAB60 /* MetaPage.swift */,
+				0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */,
+			);
+			name = APIModel;
+			path = UMUtils/Classes/APIModel;
 			sourceTree = "<group>";
 		};
 		0CC7CE64234509DE00F23145 /* Core */ = {
@@ -366,6 +410,7 @@
 		3219A9CECDBD433C78A90A91683E7D77 /* UMUtils */ = {
 			isa = PBXGroup;
 			children = (
+				0C92464223770F77006DAB60 /* APIModel */,
 				0CC7CE64234509DE00F23145 /* Core */,
 				0C1F06462345016700462EF1 /* Material */,
 				0C1F06442345016700462EF1 /* Popup */,
@@ -565,7 +610,9 @@
 				0CC7CEA4234509DF00F23145 /* NSAttributedString+HTMLString.swift in Sources */,
 				0CC7CE9A234509DF00F23145 /* UIViewController+Notification.swift in Sources */,
 				0CC7CE92234509DE00F23145 /* UIViewController+Additions.swift in Sources */,
+				0C92465123770F77006DAB60 /* Error+APIError.swift in Sources */,
 				0CC7CE8C234509DE00F23145 /* GradientView.swift in Sources */,
+				0C92464E23770F77006DAB60 /* Moya+Rx.swift in Sources */,
 				0C6CBF90234BEA3300F49216 /* AlertButtonAction.swift in Sources */,
 				0CC7CE93234509DE00F23145 /* String+Localized.swift in Sources */,
 				0CC7CE91234509DE00F23145 /* Number+Formats.swift in Sources */,
@@ -575,21 +622,29 @@
 				0C6CBF8E234BEA3300F49216 /* AlertButton.swift in Sources */,
 				0CC7CE8B234509DE00F23145 /* AssociatedObjects.swift in Sources */,
 				0CC7CEA3234509DF00F23145 /* CLLocationCoordinate2D+Dictionary.swift in Sources */,
+				0C92465323770F77006DAB60 /* APIArray.swift in Sources */,
 				0CC7CE96234509DE00F23145 /* String+Currency.swift in Sources */,
+				0C92465223770F77006DAB60 /* APIException.swift in Sources */,
 				7B19FF07648E45275843C3B256629DD3 /* UMUtils-dummy.m in Sources */,
 				0CC7CEA5234509DF00F23145 /* UIScrollView+ScrollToBottom.swift in Sources */,
+				0C92465623770F77006DAB60 /* MetaPageModel.swift in Sources */,
 				0CC7CE98234509DF00F23145 /* UIView+Corner.swift in Sources */,
 				0CC7CE99234509DF00F23145 /* Number+Price.swift in Sources */,
+				0C92465523770F77006DAB60 /* APIResult.swift in Sources */,
 				0CC7CE9D234509DF00F23145 /* UIImage+Resizing.swift in Sources */,
 				0CC7CEA1234509DF00F23145 /* Date+String.swift in Sources */,
 				0C1F064B2345016700462EF1 /* Rx+Operators.swift in Sources */,
 				0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */,
 				0CC7CE9F234509DF00F23145 /* String+BoundingRect.swift in Sources */,
+				0C92465423770F77006DAB60 /* IncludeParameters.swift in Sources */,
+				0C92465723770F77006DAB60 /* MetaPage.swift in Sources */,
+				0C92464F23770F77006DAB60 /* APIObject.swift in Sources */,
 				0C1F95FA2346AD35005E0B4C /* UIView+Rx.swift in Sources */,
 				0CC7CEAA234509DF00F23145 /* UIWindow+ViewControllers.swift in Sources */,
 				0CC7CEA7234509DF00F23145 /* UIButton+Styles.swift in Sources */,
 				0CC7CE8E234509DE00F23145 /* Dropable.swift in Sources */,
 				0CC7CEB1234520C100F23145 /* ViewModel.swift in Sources */,
+				0C92465823770F77006DAB60 /* Moya+ObjectMapper.swift in Sources */,
 				0C1F064A2345016700462EF1 /* UMProgressBar.swift in Sources */,
 				0C1F06492345016700462EF1 /* CLLocationManager+Rx.swift in Sources */,
 				0C1F064E2345016700462EF1 /* UIViewController+Rx.swift in Sources */,
@@ -606,6 +661,7 @@
 				0C1F06552345016700462EF1 /* CNPPopupTheme+Material.swift in Sources */,
 				0CC7CEAB234509DF00F23145 /* UILabel+Boldify.swift in Sources */,
 				0C1F064C2345016700462EF1 /* ActivityIndicator.swift in Sources */,
+				0C9246292377007D006DAB60 /* UIScrollView+Rx.swift in Sources */,
 				0C6CBF8F234BEA3300F49216 /* AlertController.swift in Sources */,
 				0CC7CEA2234509DF00F23145 /* Date+Time.swift in Sources */,
 				0C1F06522345016700462EF1 /* UIControl+Rx.swift in Sources */,
@@ -616,6 +672,7 @@
 				0CC7CE97234509DF00F23145 /* UIViewController+Preparation.swift in Sources */,
 				0C1BC43E234D3DAC00D96A55 /* NextTextField.swift in Sources */,
 				0CC7CEAF2345207F00F23145 /* ViewModelBindable.swift in Sources */,
+				0C92465023770F77006DAB60 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,43 +17,43 @@ var TextFieldTextKey = 0
 extension TextField {
 
     fileprivate var proxyDelegate: ProxyDelegate? {
-        if let _proxy = objc_getAssociatedObject(self, &TextFieldProxyDelegateKey) as? ProxyDelegate {
+        if let _proxy: ProxyDelegate = getAssociatedObject(object: self, key: &TextFieldProxyDelegateKey) {
             return _proxy
         }
 
         let _proxy = ProxyDelegate()
-        objc_setAssociatedObject(self, &TextFieldProxyDelegateKey, _proxy, .OBJC_ASSOCIATION_RETAIN)
+        setAssociatedObject(object: self, value: _proxy, key: &TextFieldProxyDelegateKey, policy:  .OBJC_ASSOCIATION_RETAIN)
         return _proxy
     }
 
     open override var delegate: UITextFieldDelegate? {
         get {
-            return objc_getAssociatedObject(self, &TextFieldDelegateKey) as? UITextFieldDelegate
+            return getAssociatedObject(object: self, key: &TextFieldDelegateKey)
         }
         set(value) {
-            objc_setAssociatedObject(self, &TextFieldDelegateKey, value, .OBJC_ASSOCIATION_RETAIN)
+            setAssociatedObject(object: self, value: value, key: &TextFieldDelegateKey, policy: .OBJC_ASSOCIATION_RETAIN)
         }
     }
 
     public var maskedText: String? {
         get {
-            return objc_getAssociatedObject(self, &TextFieldTextKey) as? String
+            return getAssociatedObject(object: self, key: &TextFieldTextKey)
         }
         set(value) {
-            objc_setAssociatedObject(self, &TextFieldTextKey, value, .OBJC_ASSOCIATION_RETAIN)
+            setAssociatedObject(object: self, value: value, key: &TextFieldTextKey, policy: .OBJC_ASSOCIATION_RETAIN)
         }
     }
 
     public var maskText: String {
         get {
-            if let _mask = objc_getAssociatedObject(self, &TextFieldMaskTextKey) as? String {
+            if let _mask: String = getAssociatedObject(object: self, key: &TextFieldMaskTextKey) {
                 return _mask
             }
             return ""
         }
         set(value) {
             guard value != maskText else { return }
-            objc_setAssociatedObject(self, &TextFieldMaskTextKey, value, .OBJC_ASSOCIATION_RETAIN)
+            setAssociatedObject(object: self, value: value, key: &TextFieldMaskTextKey, policy: .OBJC_ASSOCIATION_RETAIN)
             super.delegate = self.proxyDelegate
             if let _text = text, maskedText != text, !text!.isEmpty {
                 self.text = _text
@@ -88,10 +88,10 @@ extension TextField {
 
     public var defaultCharMask: String {
         get {
-            return objc_getAssociatedObject(self, &TextFieldDefaultCharMaskKey) as? String ?? "#"
+            return getAssociatedObject(object: self, key: &TextFieldDefaultCharMaskKey) ?? "#"
         }
         set(value) {
-            objc_setAssociatedObject(self, &TextFieldDefaultCharMaskKey, value, .OBJC_ASSOCIATION_RETAIN)
+            setAssociatedObject(object: self, value: value, key: &TextFieldDefaultCharMaskKey, policy: .OBJC_ASSOCIATION_RETAIN)
         }
     }
 

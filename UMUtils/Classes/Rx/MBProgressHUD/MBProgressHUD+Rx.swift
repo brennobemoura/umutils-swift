@@ -11,8 +11,6 @@ import RxSwift
 import RxCocoa
 import MBProgressHUD
 
-private var MBProgressHUDAttachedViewKey: UInt8 = 0
-
 extension Reactive where Base: MBProgressHUD {
     
     public var animating: AnyObserver<Bool> {
@@ -50,6 +48,7 @@ extension Reactive where Base: MBProgressHUD {
 }
 
 extension MBProgressHUD {
+    public static let attachedViews: ObjectAssociation<UIView> = .init(policy: .OBJC_ASSOCIATION_ASSIGN)
     
     public static var rx: Reactive<MBProgressHUD>.Type {
         get {
@@ -59,13 +58,13 @@ extension MBProgressHUD {
             // this enables using Reactive to "mutate" base type
         }
     }
-    
+
     var attachedView: UIView? {
         get {
-            return objc_getAssociatedObject(self, &MBProgressHUDAttachedViewKey) as? UIView
+            return Self.attachedViews[self]
         }
         set(value) {
-            objc_setAssociatedObject(self, &MBProgressHUDAttachedViewKey, value, .OBJC_ASSOCIATION_RETAIN)
+            Self.attachedViews[self] = value
         }
     }
 }

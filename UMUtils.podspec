@@ -92,4 +92,12 @@ TODO: Add long description of the pod here.
       ss.dependency 'CNPPopupController'
   end
 
+  s.subspec 'APIModel' do |ss|
+      ss.source_files = 'UMUtils/Classes/APIModel/**/*.swift'
+      ss.dependency 'Moya'
+      ss.dependency "RxSwift"
+      ss.dependency "RxCocoa"
+      ss.dependency 'ObjectMapper'
+  end
+
 end

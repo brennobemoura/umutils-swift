@@ -25,17 +25,6 @@ extension UIView {
         }
     }
 
-//    @IBInspectable
-//    open var borderColor: UIColor? {
-//        get {
-//            guard layer.borderColor != nil else { return nil }
-//            return UIColor(cgColor: layer.borderColor!)
-//        }
-//        set(value) {
-//            layer.borderColor = value?.cgColor
-//        }
-//    }
-
     @IBInspectable
     open var shadowOffset: CGSize {
         get {
