@@ -11,6 +11,7 @@ import SnapKit
 import UIContainer
 
 open class AlertView: View {
+    private var contentSV: UIStackView!
     private var stackView: UIStackView!
     private weak var spacer: Spacer!
     
@@ -53,7 +54,7 @@ open class AlertView: View {
             self.imageView?.image = image
         }
 
-        self.stackView.insertArrangedSubview(self.imageView!, at: 0)
+        self.contentSV.insertArrangedSubview(self.imageView!, at: 0)
     }
     
     // MARK: Alert Title
@@ -82,7 +83,7 @@ open class AlertView: View {
 
         self.titleLabel?.text = text
 
-        self.stackView.insertArrangedSubview(self.titleLabel!, at: self.position(for: 1))
+        self.contentSV.insertArrangedSubview(self.titleLabel!, at: self.position(for: 1))
     }
     
     // MARK: Alert Subtitle
@@ -133,7 +134,7 @@ open class AlertView: View {
         }
         
         if stackView.superview == nil {
-            self.stackView.insertArrangedSubview(stackView, at: self.position(for: 3))
+            self.contentSV.insertArrangedSubview(stackView, at: self.position(for: 3))
         }
     }
     
@@ -168,7 +169,7 @@ open class AlertView: View {
 
         self.subtitleLabel?.text = text
 
-        self.stackView.insertArrangedSubview(self.subtitleLabel!, at: self.position(for: 2))
+        self.contentSV.insertArrangedSubview(self.subtitleLabel!, at: self.position(for: 2))
     }
 
     // MARK: Position calculate the index for alertContainer
@@ -213,7 +214,6 @@ open class AlertView: View {
         }
         
         actionSV.insertArrangedSubview(self.rounder(actionView: view), at: 0)
-        view.snp.makeConstraints { $0.height.equalTo(44) }
     }
     
     open func rounder(actionView: UIView) -> Rounder {
@@ -229,16 +229,21 @@ open class AlertView: View {
     
     override open func prepare() {
         super.prepare()
-        
+
+        let content = UIStackView()
         let stack = UIStackView()
         let spacer = Spacer(stack, spacing: self.margin)
-        
+
+        self.contentSV = content
         self.stackView = stack
         self.spacer = spacer
-        
-        stack.axis = .vertical
-        stack.spacing = self.spacing
-        
+
+        [stack, content].forEach {
+            $0.axis = .vertical
+            $0.spacing = self.spacing
+        }
+
+        self.stackView.addArrangedSubview(Scroll(content, axis: .vertical))
         self.addSubview(spacer)
         spacer.snp.makeConstraints { $0.edges.equalTo(0) }
         

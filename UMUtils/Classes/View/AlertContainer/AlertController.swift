@@ -15,6 +15,10 @@ extension AlertView {
         override func spacer<T>(_ view: T) -> Spacer where T : UIView {
             return .init({
                 let contentView = UIView()
+
+                if #available(iOS 11.0, *) {
+                    contentView.insetsLayoutMarginsFromSafeArea = true
+                }
                 
                 if let fadeView = self.view.fadeView {
                     contentView.addSubview(fadeView) { maker, _ in
@@ -30,8 +34,10 @@ extension AlertView {
                 
                 contentView.addSubview(Content.Center(
                     Rounder(view, radius: view.layer.cornerRadius)
-                )) { maker, _ in
-                    maker.edges.equalTo(0)
+                )) { maker, superview in
+                    maker.top.equalTo(superview.snp.topMargin)
+                    maker.bottom.equalTo(superview.snp.bottomMargin)
+                    maker.leading.trailing.equalTo(0)
                 }
                 
                 let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnBackground))
@@ -47,6 +53,14 @@ extension AlertView {
             }
             
             self.parent.dismiss(animated: true, completion: nil)
+        }
+
+        override func containerDidLoad() {
+            super.containerDidLoad()
+
+            if #available(iOS 11.0, *) {
+                self.insetsLayoutMarginsFromSafeArea = true
+            }
         }
     }
 }
