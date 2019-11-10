@@ -41,6 +41,7 @@
 		0C92465623770F77006DAB60 /* MetaPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464B23770F77006DAB60 /* MetaPageModel.swift */; };
 		0C92465723770F77006DAB60 /* MetaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464C23770F77006DAB60 /* MetaPage.swift */; };
 		0C92465823770F77006DAB60 /* Moya+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */; };
+		0C94C901237884C600EFC2FE /* Activity+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C94C900237884C600EFC2FE /* Activity+Rx.swift */; };
 		0CC7CE8B234509DE00F23145 /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */; };
 		0CC7CE8C234509DE00F23145 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE67234509DE00F23145 /* GradientView.swift */; };
 		0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE69234509DE00F23145 /* DatePicker.swift */; };
@@ -131,6 +132,7 @@
 		0C92464B23770F77006DAB60 /* MetaPageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaPageModel.swift; sourceTree = "<group>"; };
 		0C92464C23770F77006DAB60 /* MetaPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaPage.swift; sourceTree = "<group>"; };
 		0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ObjectMapper.swift"; sourceTree = "<group>"; };
+		0C94C900237884C600EFC2FE /* Activity+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Activity+Rx.swift"; sourceTree = "<group>"; };
 		0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjects.swift; sourceTree = "<group>"; };
 		0CC7CE67234509DE00F23145 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0CC7CE69234509DE00F23145 /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				0C1BC439234D3DAC00D96A55 /* TextFieldHelpers */,
 				0C1F06392345016700462EF1 /* AIFlatSwitch */,
 				0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */,
+				0C94C8FF2378848D00EFC2FE /* Activity */,
 				0C1F063C2345016700462EF1 /* MBProgressHUD */,
 				0C1F063E2345016700462EF1 /* Observable+ActivityIndicator.swift */,
 				0C1F063F2345016700462EF1 /* RxCLLocationManagerDelegateProxy.swift */,
@@ -314,6 +317,14 @@
 			);
 			name = APIModel;
 			path = UMUtils/Classes/APIModel;
+			sourceTree = "<group>";
+		};
+		0C94C8FF2378848D00EFC2FE /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				0C94C900237884C600EFC2FE /* Activity+Rx.swift */,
+			);
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		0CC7CE64234509DE00F23145 /* Core */ = {
@@ -561,6 +572,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					6CE234DB8DC1453C0F926315B48289C7 = {
+						LastSwiftMigration = 1110;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -680,6 +696,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C94C901237884C600EFC2FE /* Activity+Rx.swift in Sources */,
 				D158331B9A1C016604FCEE8ABE4E5F90 /* Pods-UMUtils_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -701,6 +718,7 @@
 			baseConfigurationReference = CF249CEC287E4CBD84E216B9B605C977 /* Pods-UMUtils_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -723,6 +741,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -734,6 +754,7 @@
 			baseConfigurationReference = 1FA68C5AE8805F2E8D857EC376AD424C /* Pods-UMUtils_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -756,6 +777,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

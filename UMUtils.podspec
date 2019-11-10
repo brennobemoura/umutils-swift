@@ -82,6 +82,12 @@ TODO: Add long description of the pod here.
       ss.dependency 'RxCocoa'
       ss.dependency 'AIFlatSwitch'
   end
+
+  s.subspec 'Activity_Rx' do |ss|
+      ss.source_files = 'UMUtils/Classes/Rx/Activity/**/*.swift'
+
+      ss.dependency 'UIContainer'
+  end
   
   s.subspec 'ViewModel' do |s|
       s.source_files = 'UMUtils/Classes/ViewModel/**/*.swift'
