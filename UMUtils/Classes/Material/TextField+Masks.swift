@@ -8,52 +8,38 @@
 
 import Material
 
-var TextFieldDefaultCharMaskKey = 0
-var TextFieldMaskTextKey = 0
-var TextFieldDelegateKey = 0
-var TextFieldProxyDelegateKey = 0
-var TextFieldTextKey = 0
+private let TextFieldDefaultCharMaskObject: ObjectAssociation<String> = .init()
+private let TextFieldMaskTextObject: ObjectAssociation<String> = .init()
+private let TextFieldDelegateObject: ObjectAssociation<UITextFieldDelegate> = .init()
+private let TextFieldProxyDelegateObject: ObjectAssociation<ProxyDelegate> = .init()
+private let TextFieldTextObject: ObjectAssociation<String> = .init()
 
-extension TextField {
+public extension TextField {
 
-    fileprivate var proxyDelegate: ProxyDelegate? {
-        if let _proxy: ProxyDelegate = getAssociatedObject(object: self, key: &TextFieldProxyDelegateKey) {
-            return _proxy
+    fileprivate var proxyDelegate: ProxyDelegate {
+        return TextFieldProxyDelegateObject.lazy(self) { () -> ProxyDelegate in
+            .init()
         }
-
-        let _proxy = ProxyDelegate()
-        setAssociatedObject(object: self, value: _proxy, key: &TextFieldProxyDelegateKey, policy:  .OBJC_ASSOCIATION_RETAIN)
-        return _proxy
     }
 
     open override var delegate: UITextFieldDelegate? {
-        get {
-            return getAssociatedObject(object: self, key: &TextFieldDelegateKey)
-        }
-        set(value) {
-            setAssociatedObject(object: self, value: value, key: &TextFieldDelegateKey, policy: .OBJC_ASSOCIATION_RETAIN)
-        }
+        get { return TextFieldDelegateObject[self] }
+        set { TextFieldDelegateObject[self] = newValue }
     }
 
     public var maskedText: String? {
-        get {
-            return getAssociatedObject(object: self, key: &TextFieldTextKey)
-        }
-        set(value) {
-            setAssociatedObject(object: self, value: value, key: &TextFieldTextKey, policy: .OBJC_ASSOCIATION_RETAIN)
-        }
+        get { return TextFieldTextObject[self] }
+        set { TextFieldTextObject[self] = newValue }
     }
 
     public var maskText: String {
-        get {
-            if let _mask: String = getAssociatedObject(object: self, key: &TextFieldMaskTextKey) {
-                return _mask
+        get { return TextFieldMaskTextObject[self] ?? "" }
+        set {
+            guard newValue != self.maskText else {
+                return
             }
-            return ""
-        }
-        set(value) {
-            guard value != maskText else { return }
-            setAssociatedObject(object: self, value: value, key: &TextFieldMaskTextKey, policy: .OBJC_ASSOCIATION_RETAIN)
+
+            TextFieldTextObject[self] = newValue
             super.delegate = self.proxyDelegate
             if let _text = text, maskedText != text, !text!.isEmpty {
                 self.text = _text
@@ -87,12 +73,8 @@ extension TextField {
     }
 
     public var defaultCharMask: String {
-        get {
-            return getAssociatedObject(object: self, key: &TextFieldDefaultCharMaskKey) ?? "#"
-        }
-        set(value) {
-            setAssociatedObject(object: self, value: value, key: &TextFieldDefaultCharMaskKey, policy: .OBJC_ASSOCIATION_RETAIN)
-        }
+        get { return TextFieldDefaultCharMaskObject[self] ?? "#" }
+        set { TextFieldDefaultCharMaskObject[self] = newValue }
     }
 
     func shouldChangeCharacters(inRange range: NSRange, replacementString string: String) -> Bool {

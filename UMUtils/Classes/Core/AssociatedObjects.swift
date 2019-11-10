@@ -27,27 +27,14 @@ public final class ObjectAssociation<T> {
     }
 }
 
-public func setAssociatedObject<T>(object: AnyObject, value: T, key: UnsafeRawPointer, policy: objc_AssociationPolicy) {
-    if let associated = objc_getAssociatedObject(object, key) as? ObjectAssociation<T> {
-        associated[object] = value
-        return
-    }
+public extension ObjectAssociation {
+    func lazy(_ object: AnyObject, load handler: () -> T) -> T {
+        if let t = self[object] {
+            return t
+        }
 
-    let associated = ObjectAssociation<T>(policy: policy)
-    associated[object] = value
-    objc_setAssociatedObject(object, key, associated, .OBJC_ASSOCIATION_RETAIN)
-}
-
-public func getLazyObject<T>(object: AnyObject, key: UnsafeRawPointer, loader handler: (() -> T)) -> T {
-    if let t: T = getAssociatedObject(object: object, key: key) {
+        let t = handler()
+        self[object] = t
         return t
     }
-    
-    let t = handler()
-    setAssociatedObject(object: object, value: t, key: key, policy: .OBJC_ASSOCIATION_RETAIN)
-    return t
-}
-
-public func getAssociatedObject<T>(object: AnyObject, key: UnsafeRawPointer) -> T? {
-    return (objc_getAssociatedObject(object, key) as? ObjectAssociation<T>)?[object]
 }
