@@ -14,7 +14,7 @@ private let TextFieldDelegateObject: ObjectAssociation<UITextFieldDelegate> = .i
 private let TextFieldProxyDelegateObject: ObjectAssociation<ProxyDelegate> = .init()
 private let TextFieldTextObject: ObjectAssociation<String> = .init()
 
-public extension TextField {
+extension TextField {
 
     fileprivate var proxyDelegate: ProxyDelegate {
         return TextFieldProxyDelegateObject.lazy(self) { () -> ProxyDelegate in
@@ -77,7 +77,7 @@ public extension TextField {
         set { TextFieldDefaultCharMaskObject[self] = newValue }
     }
 
-    func shouldChangeCharacters(inRange range: NSRange, replacementString string: String) -> Bool {
+    public func shouldChangeCharacters(inRange range: NSRange, replacementString string: String) -> Bool {
 
         defer {
             self.text = self.maskedText
@@ -87,7 +87,7 @@ public extension TextField {
         return self.shouldChangeCharacters(inRange: range, replacementString: string, mask: self.maskText)
     }
 
-    func shouldChangeCharacters(inRange range: NSRange, replacementString string: String, mask: String) -> Bool {
+    public func shouldChangeCharacters(inRange range: NSRange, replacementString string: String, mask: String) -> Bool {
 
         var currentTextDigited = ((self.maskedText ?? "") as NSString?)?
             .replacingCharacters(in: range, with: string) ?? ""
@@ -150,7 +150,7 @@ public extension TextField {
         return false
     }
 
-    func isNumber(_ character: Character?) -> Bool {
+    public func isNumber(_ character: Character?) -> Bool {
         guard character != nil else {
             return false
         }
@@ -162,7 +162,7 @@ public extension TextField {
         return true
     }
 
-    func lastCharacterIsNumber(_ string: String) -> Bool {
+    public func lastCharacterIsNumber(_ string: String) -> Bool {
         return isNumber(string.last)
     }
 }

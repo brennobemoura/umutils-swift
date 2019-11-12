@@ -10,7 +10,7 @@ import UIKit
 import Material
 
 public extension TransitionController {
-    @objc public var visibleViewController: UIViewController? {
+    @objc var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
 }

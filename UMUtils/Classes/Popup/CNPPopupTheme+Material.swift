@@ -11,7 +11,7 @@ import CNPPopupController
 
 public extension CNPPopupTheme {
     
-    public class var material: CNPPopupTheme {
+    class var material: CNPPopupTheme {
         
         let theme = CNPPopupTheme()
 		theme.backgroundColor = UIColor.white;

@@ -42,7 +42,7 @@ public extension String {
         return String(string.prefix(mask.count))
     }
     
-    public func applyMask(_ maskType: MaskType) -> String {
+    func applyMask(_ maskType: MaskType) -> String {
         switch maskType {
         case .raw(let mask):
             return self.applyMask(mask)

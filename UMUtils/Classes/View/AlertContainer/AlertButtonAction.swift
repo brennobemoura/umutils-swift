@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public extension AlertButton {
+extension AlertButton {
     open class Action {
         let title: String?
         let handler: ((Action) -> Void)?
