@@ -42,7 +42,6 @@
 		0C92465823770F77006DAB60 /* Moya+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */; };
 		0C94C901237884C600EFC2FE /* Activity+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C94C900237884C600EFC2FE /* Activity+Rx.swift */; };
 		0CC7CE8B234509DE00F23145 /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */; };
-		0CC7CE8C234509DE00F23145 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE67234509DE00F23145 /* GradientView.swift */; };
 		0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE69234509DE00F23145 /* DatePicker.swift */; };
 		0CC7CE8E234509DE00F23145 /* Dropable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE6A234509DE00F23145 /* Dropable.swift */; };
 		0CC7CE8F234509DE00F23145 /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE6C234509DE00F23145 /* Bundle+Version.swift */; };
@@ -132,7 +131,6 @@
 		0C92464D23770F77006DAB60 /* Moya+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ObjectMapper.swift"; sourceTree = "<group>"; };
 		0C94C900237884C600EFC2FE /* Activity+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Activity+Rx.swift"; sourceTree = "<group>"; };
 		0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjects.swift; sourceTree = "<group>"; };
-		0CC7CE67234509DE00F23145 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0CC7CE69234509DE00F23145 /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		0CC7CE6A234509DE00F23145 /* Dropable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dropable.swift; sourceTree = "<group>"; };
 		0CC7CE6C234509DE00F23145 /* Bundle+Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
@@ -328,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */,
-				0CC7CE67234509DE00F23145 /* GradientView.swift */,
 				0CC7CE68234509DE00F23145 /* Views */,
 				0CC7CE6B234509DE00F23145 /* Categories */,
 				0CC7CE89234509DE00F23145 /* LayoutConstraint.swift */,
@@ -624,7 +621,6 @@
 				0CC7CE9A234509DF00F23145 /* UIViewController+Notification.swift in Sources */,
 				0CC7CE92234509DE00F23145 /* UIViewController+Additions.swift in Sources */,
 				0C92465123770F77006DAB60 /* Error+APIError.swift in Sources */,
-				0CC7CE8C234509DE00F23145 /* GradientView.swift in Sources */,
 				0C92464E23770F77006DAB60 /* Moya+Rx.swift in Sources */,
 				0C6CBF90234BEA3300F49216 /* AlertButtonAction.swift in Sources */,
 				0CC7CE93234509DE00F23145 /* String+Localized.swift in Sources */,

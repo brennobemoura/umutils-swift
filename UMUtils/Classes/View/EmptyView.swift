@@ -404,7 +404,6 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
     private func display(_ emptyView: View) {
         guard let superview = emptyView.superview else {
             fatalError()
-            return
         }
 
         emptyView.subviews.first(where: { $0 is Box })?.removeFromSuperview()
@@ -434,7 +433,6 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         }
 
         self.payload.onLayout?(emptyView)
-        emptyView.isHidden = false
     }
 
     private func onView(_ view: UIView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
@@ -458,9 +456,10 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
             if isEmpty { 
                 emptyView.prepareForReuse()
                 self.display(emptyView)
+                box.isHidden = false
                 return
             } else {
-                emptyView.isHidden = true
+                box.isHidden = true
             }
         }
     }
