@@ -41,6 +41,16 @@ extension ObservableType {
   }
 }
 
+extension ObservableType {
+    public func asFunction(_ disposeBag: DisposeBag) -> (@escaping (E) -> Void) -> Void  {
+        return { handler in
+            self.subscribe(onNext: {
+                handler($0)
+            }).disposed(by: disposeBag)
+        }
+  }
+}
+
 extension SharedSequence {
   public func mapVoid() -> SharedSequence<SharingStrategy, Void> {
     return self.map(Void())

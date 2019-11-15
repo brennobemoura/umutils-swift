@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import UIContainer
 
 public class EmptyView: UIView {
     public private(set) weak var titleLabel: UILabel!
@@ -43,7 +44,7 @@ public class EmptyView: UIView {
         self.prepareMessage()
         self.prepareAction()
         
-        self.backgroundColor = .white
+//        self.backgroundColor = .white
         
         self.stackView.arrangedSubviews.forEach {
             $0.isHidden = true
@@ -106,6 +107,7 @@ public extension EmptyView {
         self.actionButton.setTitle(title, for: .normal)
         
         guard let title = title, !title.isEmpty else {
+            Self.onTapObject[self] = nil
             self.actionButton.removeTarget(nil, action: nil, for: .allEvents)
             self.actionContainer.isHidden = true
             return
@@ -115,14 +117,27 @@ public extension EmptyView {
         guard let target = target else {
             return
         }
-        
+
+        Self.onTapObject[self] = nil
         self.actionButton.removeTarget(nil, action: nil, for: .allEvents)
         self.actionButton.addTarget(target.sender, action: target.action, for: target.event)
     }
+
+    @objc fileprivate func onTap() {
+        let onTap = Self.onTapObject[self]
+        onTap??()
+    }
+
+    static private var onTapObject: ObjectAssociation<(() -> Void)?> = .init()
+
+    func setAction(_ title: String?, onTap: (() -> Void)? = nil) {
+        Self.onTapObject[self] = onTap
+        self.setAction(title, target: .init(self, action: #selector(self.onTap), for: .touchUpInside))
+    }
 }
 
-fileprivate extension EmptyView {
-    func prepareStackView() {
+    fileprivate extension EmptyView {
+        func prepareStackView() {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 30
@@ -256,5 +271,205 @@ fileprivate extension UIView {
         
         self.setContentCompressionResistancePriority(.required, for: .vertical)
         self.setContentCompressionResistancePriority(.required, for: .horizontal)
+    }
+}
+
+extension EmptyView: EmptyPayload {
+    public func apply(title: NSAttributedString) {
+        self.setTitle(title.string)
+        titleLabel.attributedText = title
+    }
+
+    public func apply(message: NSAttributedString) {
+        self.setMessage(message.string)
+        messageLabel.attributedText = message
+    }
+
+    public func apply(image: UIImage) {
+        self.setImage(image)
+    }
+
+    public func button(title: String, onTap: @escaping () -> Void) {
+        self.setAction(title, onTap: onTap)
+    }
+
+    public func prepareForReuse() {
+        self.setTitle(nil)
+        self.setMessage(nil)
+        self.setImage(nil)
+        self.setAction(nil, target: nil)
+    }
+
+}
+
+public protocol EmptyPayload {
+    func apply(title: NSAttributedString)
+    func apply(message: NSAttributedString)
+    func apply(image: UIImage)
+    func button(title: String, onTap: @escaping () -> Void)
+
+    func prepareForReuse()
+}
+
+public class EmptyFactory<View: UIView & EmptyPayload> {
+    class Payload {
+        typealias Button = (title: String, onTap: () -> Void)
+        var title: (() -> NSAttributedString?)?
+        var message: (() -> NSAttributedString?)?
+        var image: (() -> UIImage?)?
+        var button: (() -> Button?)?
+        var onLayout: ((View) -> Void)?
+        var customView: (() -> UIView?)?
+    }
+
+    let payload: Payload = .init()
+
+    public init(_ type: View.Type) {}
+
+    public func apply(title: String) -> Self {
+        self.payload.title = { .init(string: title) }
+        return self
+    }
+
+    public func apply(message: String) -> Self {
+        self.payload.message = { .init(string: message) }
+        return self
+    }
+
+    public func apply(image: UIImage) -> Self {
+        self.payload.image = { image }
+        return self
+    }
+
+    public func button(title: String, onTap: (() -> Void)? = nil) -> Self {
+        let onTap = onTap ?? {}
+        self.payload.button = { (title, onTap) }
+        return self
+    }
+
+    public func apply(titles: @escaping () -> NSAttributedString?) -> Self {
+        self.payload.title = titles
+        return self
+    }
+
+    public func apply(messages: @escaping () -> NSAttributedString?) -> Self {
+        self.payload.message = messages
+        return self
+    }
+
+    public func apply(images: @escaping () -> UIImage?) -> Self {
+        self.payload.image = images
+        return self
+    }
+
+    public func button(buttons: @escaping () -> (title: String, onTap: () -> Void)?) -> Self {
+        self.payload.button = buttons
+        return self
+    }
+
+    public func customView(views: @escaping () -> UIView?) -> Self {
+        self.payload.customView = views
+        return self
+    }
+
+    public func apply(title: NSAttributedString) -> Self {
+        self.payload.title = { title }
+        return self
+    }
+
+    public func apply(message: NSAttributedString) -> Self {
+        self.payload.message = { message }
+        return self
+    }
+
+    public func onLayout(_ handler : @escaping (View) -> Void) -> Self {
+        self.payload.onLayout = handler
+        return self
+    }
+
+    private class Box: UIView {
+        init(_ view: UIView) {
+            super.init(frame: .zero)
+            self.addSubview(view)
+            view.snp.makeConstraints {
+                $0.edges.equalTo(0)
+            }
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+
+    private func display(_ emptyView: View) {
+        guard let superview = emptyView.superview else {
+            fatalError()
+            return
+        }
+
+        emptyView.subviews.first(where: { $0 is Box })?.removeFromSuperview()
+
+        if let customView = self.payload.customView?() {
+            let box = Box(customView)
+            emptyView.addSubview(box)
+            box.snp.makeConstraints {
+                $0.edges.equalTo(0)
+            }
+        } else {
+            if let title = self.payload.title?() {
+                emptyView.apply(title: title)
+            }
+
+            if let message = self.payload.message?() {
+                emptyView.apply(message: message)
+            }
+
+            if let image = self.payload.image?() {
+                emptyView.apply(image: image)
+            }
+
+            if let button = self.payload.button?() {
+                emptyView.button(title: button.title, onTap: button.onTap)
+            }
+        }
+
+        self.payload.onLayout?(emptyView)
+        emptyView.isHidden = false
+    }
+
+    private func onView(_ view: UIView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
+        if view.subviews.first(where: { $0 is Box }) != nil {
+            return
+        }
+
+        guard let superview = view.superview else {
+            fatalError()
+            return
+        }
+
+        let emptyView = View()
+        let box = Box(Content.Center(emptyView))
+        superview.addSubview(box)
+        box.snp.makeConstraints {
+            $0.edges.equalTo(view.snp.edges)
+        }
+
+        isEmpty? { isEmpty in
+            if isEmpty { 
+                emptyView.prepareForReuse()
+                self.display(emptyView)
+                return
+            } else {
+                emptyView.isHidden = true
+            }
+        }
+    }
+
+    public func onTable(_ tableView: UITableView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
+        self.onView(tableView, handler: isEmpty)
+    }
+
+    public func onCollection(_ collectionView: UICollectionView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
+        self.onView(collectionView, handler: isEmpty)
     }
 }
