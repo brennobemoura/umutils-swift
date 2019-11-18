@@ -8,19 +8,18 @@
 
 import Foundation
 import Moya
-import ObjectMapper
 
 public extension Response {
-    
-    func mapApi<T: ImmutableMappable>(_ mappableType: T.Type) -> APIResult<T> {
+
+    func mapApi<T: Decodable>(_ type: T.Type) -> APIResult<T> {
         if self.statusCode == 204 {
             return APIResult.empty
         }
-        
+
         do {
-            return APIResult.success(try Mapper<T>().map(JSONString: mapString()))
+            return .success(try JSONDecoder().decode(T.self, from: self.data))
         } catch {
-            print("[APIModel] error \(error)")
+            print("[Decoding \(T.self)] error \(error)")
             return APIResult.error(error)
         }
     }

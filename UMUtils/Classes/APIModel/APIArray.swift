@@ -7,32 +7,27 @@
 //
 
 import Foundation
-import ObjectMapper
 
-open class APIArray<Element: BaseMappable>: ImmutableMappable {
-    public let data: [Element]?
-    public let meta: [String : Any]?
+open class APIArray<Element: Decodable>: Decodable {
+    public let data: [Element]
+    public let meta: MetaPage?
 
-    required public init(map: Map) throws {
-        self.data = try map.value("data")
-        self.meta = try? map.value("meta")
-    }
-
-    open func mapping(map: Map) {
-        self.data >>> map["data"]
-        self.meta >>> map["meta"]
-    }
-
-    public init(data: [Element]?) {
+    public init(data: [Element], meta metaPage: MetaPage? = nil) {
         self.data = data
-        self.meta = nil
+        self.meta = metaPage
     }
 
-    public var page: MetaPage? {
-        guard let meta = self.meta else {
-            return nil
-        }
+    required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        return try? .init(JSON: meta)
+        self.data = try container.decode(.data)
+        self.meta = try? container.decode(.meta)
+    }
+}
+
+public extension APIArray {
+    enum CodingKeys: String, CodingKey {
+        case data
+        case meta
     }
 }

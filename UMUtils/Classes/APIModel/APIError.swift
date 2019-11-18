@@ -7,15 +7,24 @@
 //
 
 import Foundation
-import ObjectMapper
 // swiftlint:disable superfluous_disable_command identifier_name
 
-public struct APIError: Mappable {
-    public var code: Int = 0
-    public var title: String = ""
-    public var messages: [String]?
+public struct APIError: Decodable {
+    private let error: Error
+
+    public var code: Int {
+        return self.error.code
+    }
+
+    public var title: String {
+        return self.error.message
+    }
+
+    public var messages: [String]? {
+        return self.error.messages
+    }
     
-    public var exception: APIException?
+    public let exception: APIException?
     
     public var message: String {
         if code == 401 {
@@ -27,17 +36,44 @@ public struct APIError: Mappable {
         return ""
     }
     
-    public init() {}
-    
-    public init?(map: Map) {
-        mapping(map: map)
+    public init(code: Int, title: String, messages: [String]? = nil, exception: APIException? = nil) {
+        self.error = .init(code: code, message: title, messages: messages)
+        self.exception = exception
     }
-    
-    public mutating func mapping(map: Map) {
-        self.code = (try? map.value("error.code")) ?? 0
-        self.title = (try? map.value("error.message")) ?? ""
-        self.messages = try? map.value("error.messages")
-        self.exception = try? map.value("exception")
+}
+
+extension APIError {
+    enum CodingKeys: String, CodingKey {
+        case error
+        case exception
+    }
+}
+
+extension APIError {
+    private struct Error: Codable {
+        let code: Int
+        let message: String
+        let messages: [String]?
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+
+            self.code = (try? container.decode(.code)) ?? 0
+            self.message = (try? container.decode(.message)) ?? ""
+            self.messages = try? container.decode(.messages)
+        }
+
+        init(code: Int, message: String, messages: [String]?) {
+            self.code = code
+            self.message = message
+            self.messages = messages
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case code
+            case message
+            case messages
+        }
     }
 }
 

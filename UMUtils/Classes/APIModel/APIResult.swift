@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import ObjectMapper
 
-public enum APIResult<T: ImmutableMappable> {
+public enum APIResult<T: Decodable> {
     case success(T)
     case stepSuccess(T)
     case error(Error)

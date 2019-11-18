@@ -8,7 +8,6 @@
 
 import Foundation
 import Moya
-import ObjectMapper
 
 public extension Swift.Error {
     var isSessionExpired: Bool {
@@ -25,36 +24,35 @@ public extension Swift.Error {
         do {
             if let moyaError = self as? MoyaError {
                 if let response = moyaError.response {
-                    return Mapper<APIError>().map(JSONString: try response.mapString())
+                    return try JSONDecoder().decode(APIError.self, from: response.data)
                 } else {
-                    var apiError = APIError()
                     if case .underlying((let error, _)) = moyaError {
-                        apiError.code = -1
-                        apiError.title = error.localizedDescription
-                        
-                        return apiError
-                    } else {
-                        apiError.code = -2
-                        apiError.title = moyaError.localizedDescription
+                        return APIError(
+                            code: -1,
+                            title: error.localizedDescription
+                        )
                     }
-                    
-                    return apiError
+
+                    return APIError(
+                        code: -2,
+                        title: moyaError.localizedDescription
+                    )
                 }
-            } else if let mapperError = self as? MapError {
-                
-                var apiError = APIError()
-                var exception = APIException()
-                exception.message = mapperError.reason!
-                exception.file = String(describing: mapperError.file)
-                exception.line = Int(mapperError.line ?? 0)
-                exception.type = "MapError"
-                
-                apiError.exception = exception
-                apiError.code = -3
-                apiError.title = "Houve um erro ao processar a resposta do servidor. Tente novamente."
-                
-                return apiError
-            }
+
+            } else if let decodingError = self as? DecodingError {
+
+                return APIError(
+                    code: -3,
+                    title: "Houve um erro ao processar a resposta do servidor. Tente novamente.",
+                    exception: .init(
+                        line: 0,
+                        severity: "",
+                        type: "DecodingError",
+                        file: decodingError.helpAnchor ?? "nil",
+                        message: decodingError.failureReason ?? "nil",
+                        trace: nil
+                ))
+           }
         } catch {
             print("[APIModel] Error: \(error)")
         }

@@ -7,30 +7,45 @@
 //
 
 import Foundation
-import ObjectMapper
 
-public struct APIException: Mappable {
+public struct APIException: Decodable {
     
-    public var line: Int! = 0
-    public var severity: String = ""
-    public var type: String = ""
-    public var file: String = ""
-    public var message: String = ""
+    public let line: Int
+    public let severity: String
+    public let type: String
+    public let file: String
+    public let message: String
     
-    public var trace: [AnyObject]?
+    public let trace: [String]?
     
-    public init() {}
-    
-    public init?(map: Map) {
-        mapping(map: map)
+    public init(line: Int, severity: String, type: String, file: String, message: String, trace: [String]?) {
+        self.line = line
+        self.severity = severity
+        self.type = type
+        self.file = file
+        self.message = message
+        self.trace = trace
     }
-    
-    public mutating func mapping(map: Map) {
-        self.line = (try? map.value("line")) ?? 0
-        self.message = (try? map.value("message")) ?? ""
-        self.severity = (try? map.value("severity")) ?? ""
-        self.type = (try? map.value("type")) ?? ""
-        self.file = (try? map.value("file")) ?? ""
-        self.trace = try? map.value("trace")
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.line = (try? container.decode(.line)) ?? 0
+        self.message = (try? container.decode(.message)) ?? ""
+        self.severity = (try? container.decode(.severity)) ?? ""
+        self.type = (try? container.decode(.type)) ?? ""
+        self.file = (try? container.decode(.file)) ?? ""
+        self.trace = try? container.decode(.trace)
+    }
+}
+
+extension APIException {
+    enum CodingKeys: String, CodingKey {
+        case line
+        case severity
+        case type
+        case file
+        case message
+        case trace
     }
 }

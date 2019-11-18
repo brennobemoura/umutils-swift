@@ -103,7 +103,6 @@ TODO: Add long description of the pod here.
       ss.dependency 'Moya'
       ss.dependency "RxSwift"
       ss.dependency "RxCocoa"
-      ss.dependency 'ObjectMapper'
   end
 
 end

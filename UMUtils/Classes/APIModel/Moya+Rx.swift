@@ -7,27 +7,25 @@
 //
 
 import Moya
-import ObjectMapper
 import RxSwift
 import RxCocoa
 
 public extension ObservableType where E == Moya.Response {
     
-    func map<T: ImmutableMappable>(_ mappableType: T.Type) -> Observable<APIResult<T>> {
+    func map<T: Decodable>(_ mappableType: T.Type) -> Observable<APIResult<T>> {
         return flatMap { response -> Observable<APIResult<T>> in
-            return Observable.just(response.mapApi(mappableType))
-            }.do(onError: { error in
-                if error is MapError {
-                    print("[APIModel] error \(error)")
-                }
-            })
+            return .just(response.mapApi(mappableType))
+        }.do(onError: { error in
+            let apiError = error.apiError
+            print("[Decoding \(T.self)] error \(error)")
+        })
     }
     
     // MARK: Map to Driver
     
-    func mapDriver<T: ImmutableMappable>(_ mappableType: T.Type) -> Driver<APIResult<T>> {
+    func mapDriver<T: Decodable>(_ mappableType: T.Type) -> Driver<APIResult<T>> {
         return map(mappableType).asDriver(onErrorRecover: { (error) -> Driver<APIResult<T>> in
-            return Driver.just(APIResult.error(error))
+            return .just(.error(error))
         })
     }
 }

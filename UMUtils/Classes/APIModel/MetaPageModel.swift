@@ -14,7 +14,6 @@ public protocol MetaPageElement {
     associatedtype Index
     var indexPath: IndexPath { get }
     static func map(_ elements: [Index], startingAt indexPath: IndexPath) -> [Self]
-    static func merge(_ left: [Self], right: [Self]) -> [Self]
 }
 
 public protocol MetaPageModel: class {
@@ -82,7 +81,7 @@ public extension MetaPageModel {
             return
         }
 
-        self.itemsRelay.accept(Model.merge(self.itemsRelay.value, right: appendRows))
+        self.itemsRelay.accept(self.itemsRelay.value + appendRows)
         self.pageRelay.accept(newPage)
     }
     

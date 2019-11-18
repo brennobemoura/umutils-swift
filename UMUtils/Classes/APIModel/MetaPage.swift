@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ObjectMapper
 
 public enum MetaPageStatus {
     case empty
@@ -17,26 +16,29 @@ public enum MetaPageStatus {
     case reload
 }
 
-public class MetaPage: ImmutableMappable {
+public class MetaPage: Codable {
     public let currentPage: Int
     public let startIndex: Int
     public let lastPage: Int
     public let count: Int
     public let status: MetaPageStatus
     public let firstPage: Int
-    
-    required public init(map: Map) throws {
-        self.currentPage = try map.value("current_page")
-        self.startIndex = try map.value("from")
-        self.lastPage = try map.value("last_page")
-        self.count = try map.value("per_page")
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.currentPage = try container.decode(.currentPage)
+        self.startIndex = try container.decode(.startIndex)
+        self.lastPage = try container.decode(.lastPage)
+        self.count = try container.decode(.count)
         self.firstPage = 1
-        
+
         if currentPage == lastPage {
             self.status = .end
         } else {
             self.status = .next
         }
+
     }
     
     private init() {
@@ -106,5 +108,14 @@ public extension MetaPage {
             self.currentPage = currentPage
             self.status = status
         }
+    }
+}
+
+public extension MetaPage {
+    enum CodingKeys: String, CodingKey {
+        case currentPage = "current_page"
+        case startIndex = "from"
+        case lastPage = "last_page"
+        case count = "per_page"
     }
 }
