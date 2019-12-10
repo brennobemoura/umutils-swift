@@ -31,7 +31,11 @@ public extension String {
         mask.enumerated()
             .filter { $0.element != "#" }
             .forEach { mask in
-                if let index = string.index(string.startIndex, offsetBy: mask.offset, limitedBy: string.endIndex) {
+                guard let beforeIndex = string.index(string.endIndex, offsetBy: -1, limitedBy: string.startIndex) else {
+                     return
+                }
+                
+                if let index = string.index(string.startIndex, offsetBy: mask.offset, limitedBy: beforeIndex) {
                     if let char = string.enumerated().first(where: {$0.offset == mask.offset}), char.element == mask.element {
                         return
                     }
