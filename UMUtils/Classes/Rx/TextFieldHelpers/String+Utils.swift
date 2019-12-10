@@ -31,11 +31,11 @@ public extension String {
         mask.enumerated()
             .filter { $0.element != "#" }
             .forEach { mask in
-                if string.count > mask.offset {
+                if let index = string.index(string.startIndex, offsetBy: mask.offset, limitedBy: string.endIndex) {
                     if let char = string.enumerated().first(where: {$0.offset == mask.offset}), char.element == mask.element {
                         return
                     }
-                    string.insert(mask.element, at: string.index(string.startIndex, offsetBy: mask.offset))
+                    string.insert(mask.element, at: index)
                 }
         }
         
