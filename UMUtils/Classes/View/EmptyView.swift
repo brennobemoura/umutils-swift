@@ -435,19 +435,19 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         self.payload.onLayout?(emptyView)
     }
 
-    private func onView(_ view: UIView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
+    public func onView(_ view: UIView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
         if view.subviews.first(where: { $0 is Box }) != nil {
             return
         }
 
-        guard let superview = view.superview else {
+        if view is UIScrollView && view.superview == nil {
             fatalError()
             return
         }
 
         let emptyView = View()
         let box = Box(Content.Center(emptyView))
-        superview.addSubview(box)
+        (view.superview ?? view).addSubview(box)
         box.snp.makeConstraints {
             $0.edges.equalTo(view.snp.edges)
         }
@@ -464,10 +464,12 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         }
     }
 
+    @available(*, deprecated, renamed: "onView")
     public func onTable(_ tableView: UITableView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
         self.onView(tableView, handler: isEmpty)
     }
 
+    @available(*, deprecated, renamed: "onView")
     public func onCollection(_ collectionView: UICollectionView!, handler isEmpty: ((@escaping (Bool) -> Void) -> Void)? = nil) {
         self.onView(collectionView, handler: isEmpty)
     }
