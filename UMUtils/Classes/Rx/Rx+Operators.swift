@@ -57,6 +57,16 @@ extension SharedSequence {
   }
 }
 
+extension SharedSequence where S == DriverSharingStrategy {
+    public func asFunction(_ disposeBag: DisposeBag) -> (@escaping (E) -> Void) -> Void  {
+          return { handler in
+              self.drive(onNext: {
+                  handler($0)
+              }).disposed(by: disposeBag)
+          }
+    }
+}
+
 
 // MARK: - ignoreErrors()
 
