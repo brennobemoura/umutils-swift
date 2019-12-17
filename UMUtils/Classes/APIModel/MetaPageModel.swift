@@ -55,9 +55,11 @@ public extension MetaPageModel {
     }
     
     // MARK: Paged
-    func appendRows(_ rows: [Model.Index], newPage: MetaPage, oldPage: MetaPage? = nil) {
+    func appendRows(_ rows: [Model.Index], newPage: MetaPage, oldPage: MetaPage? = nil, map: ((Model) -> Model)? = nil) {
         let startIndex = newPage.startIndex - 1
-        let appendRows = Model.map(rows, startingAt: .init(row: startIndex, section: 0))
+        let appendRows = Model.map(rows, startingAt: .init(row: startIndex, section: 0)).map {
+            map?($0) ?? $0
+        }
         
         if case .reload? = oldPage?.status {
             let upperBound = startIndex+newPage.count
