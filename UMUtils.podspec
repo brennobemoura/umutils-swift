@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UMUtils'
-  s.version          = '0.4.2'
+  s.version          = '0.4.6'
   s.summary          = "Utility Class Library"
 
 # This description is used to generate tags and improve search results.
@@ -56,7 +56,7 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/View/**/*.swift'
 
       ss.dependency 'SnapKit'
-      ss.dependency 'UIContainer'
+      ss.dependency 'UIContainer', '~> 1.1.0'
       ss.platform = :ios, '10.0'
   end
 
@@ -86,7 +86,7 @@ TODO: Add long description of the pod here.
   s.subspec 'Activity_Rx' do |ss|
       ss.source_files = 'UMUtils/Classes/Rx/Activity/**/*.swift'
 
-      ss.dependency 'UIContainer'
+      ss.dependency 'UIContainer', '~> 1.1.0'
   end
   
   s.subspec 'ViewModel' do |s|
