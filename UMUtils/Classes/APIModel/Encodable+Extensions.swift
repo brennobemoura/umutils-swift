@@ -65,7 +65,7 @@ public func >- <T: Encodable, K: CodingKey>(left: T?, right: KeyedEncodingContai
 }
 
 public func >- <T, K: CodingKey, Transform: EncodableTransform>(left: T, right: (KeyedEncodingContainer<K>.Wrapper<K>, Transform)) where Transform.Input == T {
-    guard let value = try? right.1.encode(left) else {
+    guard let value = right.1.encode(left) else {
         return
     }
 
@@ -73,7 +73,7 @@ public func >- <T, K: CodingKey, Transform: EncodableTransform>(left: T, right: 
 }
 
 public func >- <T, K: CodingKey, Transform: EncodableTransform>(left: T?, right: (KeyedEncodingContainer<K>.Wrapper<K>, Transform)) where Transform.Input == T {
-    guard let left = left, let value = try? right.1.encode(left) else {
+    guard let left = left, let value = right.1.encode(left) else {
         return
     }
 

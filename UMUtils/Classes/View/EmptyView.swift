@@ -152,7 +152,7 @@ fileprivate extension EmptyView {
         stackView.axis = .vertical
         stackView.spacing = 30
 
-        let scroll = Scroll(stackView, axis: .vertical)
+        let scroll = ScrollView(stackView, axis: .vertical)
         self.addSubview(scroll)
         self.stackView = stackView
 
@@ -320,6 +320,20 @@ public protocol EmptyPayload {
     func prepareForReuse()
 }
 
+private class Box: UIView {
+    init(_ view: UIView) {
+        super.init(frame: .zero)
+        self.addSubview(view)
+        view.snp.makeConstraints {
+            $0.edges.equalTo(0)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 public class EmptyFactory<View: UIView & EmptyPayload> {
     class Payload {
         typealias Button = (title: String, onTap: () -> Void)
@@ -396,22 +410,8 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         return self
     }
 
-    private class Box: UIView {
-        init(_ view: UIView) {
-            super.init(frame: .zero)
-            self.addSubview(view)
-            view.snp.makeConstraints {
-                $0.edges.equalTo(0)
-            }
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-
     private func display(_ emptyView: View) {
-        guard let superview = emptyView.superview else {
+        guard emptyView.superview != nil else {
             fatalError()
         }
 
@@ -462,7 +462,7 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         }()
 
         let emptyView = View()
-        let box = Box(Content.Center(emptyView))
+        let box = Box(ContentView.Center(emptyView))
         contentView.addSubview(box)
         box.snp.makeConstraints {
             $0.edges.equalTo(view.snp.edges)

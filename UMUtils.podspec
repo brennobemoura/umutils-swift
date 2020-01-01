@@ -56,7 +56,7 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/View/**/*.swift'
 
       ss.dependency 'SnapKit'
-      ss.dependency 'UIContainer', '~> 1.1.0'
+      ss.dependency 'UIContainer', '~> 1.2.0-beta.3'
       ss.platform = :ios, '10.0'
   end
 
@@ -86,7 +86,7 @@ TODO: Add long description of the pod here.
   s.subspec 'Activity_Rx' do |ss|
       ss.source_files = 'UMUtils/Classes/Rx/Activity/**/*.swift'
 
-      ss.dependency 'UIContainer', '~> 1.1.0'
+      ss.dependency 'UIContainer', '~> 1.2.0-beta.3'
   end
   
   s.subspec 'ViewModel' do |s|
