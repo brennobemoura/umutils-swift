@@ -251,7 +251,8 @@ fileprivate extension EmptyView {
     }
 
     func prepareAction() {
-        self.actionButton = self.createAction()
+        let actionButton = self.createAction()
+        self.actionButton = actionButton
 
         let containerView = UIView()
         self.stackView.addArrangedSubview(containerView)
@@ -261,9 +262,9 @@ fileprivate extension EmptyView {
             make.height.equalTo(50).priority(.low)
         }
 
-        containerView.addSubview(self.actionButton)
+        containerView.addSubview(actionButton)
 
-        self.actionButton.snp.makeConstraints { make in
+        actionButton.snp.makeConstraints { make in
             make.width.equalTo(210)
             make.leading.greaterThanOrEqualTo(0)
             make.trailing.lessThanOrEqualTo(0)
