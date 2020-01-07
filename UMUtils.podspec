@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UMUtils'
-  s.version          = '0.4.6'
+  s.version          = '0.4.7'
   s.summary          = "Utility Class Library"
 
 # This description is used to generate tags and improve search results.
