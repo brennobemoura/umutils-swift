@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UMUtils'
-  s.version          = '0.4.6'
+  s.version          = '0.4.7'
   s.summary          = "Utility Class Library"
 
 # This description is used to generate tags and improve search results.
@@ -56,7 +56,7 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/View/**/*.swift'
 
       ss.dependency 'SnapKit'
-      ss.dependency 'UIContainer', '~> 1.1.0'
+      ss.dependency 'UIContainer', '~> 1.2.0-beta.3'
       ss.platform = :ios, '10.0'
   end
 
@@ -64,8 +64,8 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/Rx/*.swift'
       
       ss.dependency 'UMUtils/Core'
-      ss.dependency 'RxSwift'
-      ss.dependency 'RxCocoa'
+      ss.dependency 'RxSwift', '~> 5.0'
+      ss.dependency 'RxCocoa', '~> 5.0'
   end
 
   s.subspec 'MBProgressHUD_Rx' do |ss|
@@ -78,15 +78,15 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/Rx/AIFlatSwitch/**/*.swift'
 
       ss.dependency 'UMUtils/Rx'
-      ss.dependency 'RxSwift'
-      ss.dependency 'RxCocoa'
+      ss.dependency 'RxSwift', '~> 5.0'
+      ss.dependency 'RxCocoa', '~> 5.0'
       ss.dependency 'AIFlatSwitch'
   end
 
   s.subspec 'Activity_Rx' do |ss|
       ss.source_files = 'UMUtils/Classes/Rx/Activity/**/*.swift'
 
-      ss.dependency 'UIContainer', '~> 1.1.0'
+      ss.dependency 'UIContainer', '~> 1.2.0-beta.3'
   end
   
   s.subspec 'ViewModel' do |s|
@@ -101,8 +101,8 @@ TODO: Add long description of the pod here.
   s.subspec 'APIModel' do |ss|
       ss.source_files = 'UMUtils/Classes/APIModel/**/*.swift'
       ss.dependency 'Moya'
-      ss.dependency "RxSwift"
-      ss.dependency "RxCocoa"
+      ss.dependency "RxSwift", '~> 5.0'
+      ss.dependency "RxCocoa", '~> 5.0'
   end
 
 end

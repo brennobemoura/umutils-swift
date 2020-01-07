@@ -12,7 +12,7 @@ import UIContainer
 
 extension AlertView {
     class Container: ContainerView<AlertView> {
-        override func spacer<T>(_ view: T) -> Spacer where T : UIView {
+        override func spacer<T>(_ view: T) -> SpacerView where T : UIView {
             return .init({
                 let contentView = UIView()
 
@@ -27,13 +27,13 @@ extension AlertView {
                 }
                 
                 if self.view.useBlur {
-                    contentView.addSubview(Blur(blur: self.view.blurEffectStyle)) { maker, _ in
+                    contentView.addSubview(BlurView(blur: self.view.blurEffectStyle)) { maker, _ in
                         maker.edges.equalTo(0)
                     }
                 }
                 
-                contentView.addSubview(Content.Center(
-                    Rounder(view, radius: view.layer.cornerRadius)
+                contentView.addSubview(ContentView.Center(
+                    RounderView(view, radius: view.layer.cornerRadius)
                 )) { maker, superview in
                     maker.top.equalTo(superview.snp.topMargin)
                     maker.bottom.equalTo(superview.snp.bottomMargin)

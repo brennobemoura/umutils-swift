@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import UIContainer
 
-public extension Reactive where Base: Activity {
+public extension Reactive where Base: ActivityView {
 
     var animating: AnyObserver<Bool> {
         return AnyObserver { event in

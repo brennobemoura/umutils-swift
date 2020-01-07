@@ -10,13 +10,12 @@ import Moya
 import RxSwift
 import RxCocoa
 
-public extension ObservableType where E == Moya.Response {
+public extension ObservableType where Element == Moya.Response {
     
     func map<T: Decodable>(_ mappableType: T.Type) -> Observable<APIResult<T>> {
         return flatMap { response -> Observable<APIResult<T>> in
             return .just(response.mapApi(mappableType))
         }.do(onError: { error in
-            let apiError = error.apiError
             print("[Decoding \(T.self)] error \(error)")
         })
     }

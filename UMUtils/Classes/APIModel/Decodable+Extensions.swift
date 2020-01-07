@@ -26,6 +26,6 @@ public extension KeyedDecodingContainer {
             return nil
         }
 
-        return try? transform.decode(value)
+        return transform.decode(value)
     }
 }

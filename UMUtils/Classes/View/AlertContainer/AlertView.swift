@@ -13,7 +13,7 @@ import UIContainer
 open class AlertView: View {
     private var contentSV: UIStackView!
     private var stackView: UIStackView!
-    private weak var spacer: Spacer!
+    private weak var spacer: SpacerView!
     
     // MARK: Image Alert
     public private(set) var imageView: UIImageView? = nil
@@ -216,8 +216,8 @@ open class AlertView: View {
         actionSV.insertArrangedSubview(self.rounder(actionView: view), at: 0)
     }
     
-    open func rounder(actionView: UIView) -> Rounder {
-        return Rounder(actionView, radius: 4)
+    open func rounder(actionView: UIView) -> RounderView {
+        return RounderView(actionView, radius: 4)
             .border(color: actionView.borderColor)
             .border(width: actionView.borderWidth)
     }
@@ -232,7 +232,7 @@ open class AlertView: View {
 
         let content = UIStackView()
         let stack = UIStackView()
-        let spacer = Spacer(stack, spacing: self.margin)
+        let spacer = SpacerView(stack, spacing: self.margin)
 
         self.contentSV = content
         self.stackView = stack
@@ -243,7 +243,7 @@ open class AlertView: View {
             $0.spacing = self.spacing
         }
 
-        self.stackView.addArrangedSubview(Scroll(content, axis: .vertical))
+        self.stackView.addArrangedSubview(ScrollView(content, axis: .vertical))
         self.addSubview(spacer)
         spacer.snp.makeConstraints { $0.edges.equalTo(0) }
         
