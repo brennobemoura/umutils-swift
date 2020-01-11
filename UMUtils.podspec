@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UMUtils'
-  s.version          = '0.4.7'
+  s.version          = '0.4.8'
   s.summary          = "Utility Class Library"
 
 # This description is used to generate tags and improve search results.
@@ -64,8 +64,8 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/Rx/*.swift'
       
       ss.dependency 'UMUtils/Core'
-      ss.dependency 'RxSwift', '~> 5.0'
-      ss.dependency 'RxCocoa', '~> 5.0'
+      ss.dependency 'RxSwift', '>= 4.5', "<= 5.0"
+      ss.dependency 'RxCocoa', '>= 4.5', "<= 5.0"
   end
 
   s.subspec 'MBProgressHUD_Rx' do |ss|
@@ -78,8 +78,8 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/Rx/AIFlatSwitch/**/*.swift'
 
       ss.dependency 'UMUtils/Rx'
-      ss.dependency 'RxSwift', '~> 5.0'
-      ss.dependency 'RxCocoa', '~> 5.0'
+      ss.dependency 'RxSwift', '>= 4.5', "<= 5.0"
+      ss.dependency 'RxCocoa', '>= 4.5', "<= 5.0"
       ss.dependency 'AIFlatSwitch'
   end
 
@@ -101,8 +101,8 @@ TODO: Add long description of the pod here.
   s.subspec 'APIModel' do |ss|
       ss.source_files = 'UMUtils/Classes/APIModel/**/*.swift'
       ss.dependency 'Moya'
-      ss.dependency "RxSwift", '~> 5.0'
-      ss.dependency "RxCocoa", '~> 5.0'
+      ss.dependency 'RxSwift', '>= 4.5', "<= 5.0"
+      ss.dependency 'RxCocoa', '>= 4.5', "<= 5.0"
   end
 
 end
