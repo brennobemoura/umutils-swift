@@ -39,7 +39,7 @@ private struct ActivityToken<E>: ObservableConvertibleType, Disposable {
  */
 // swiftlint:disable type_name
 public class ActivityIndicator: SharedSequenceConvertibleType {
-    public typealias Element = Bool
+    public typealias E = Bool
     public typealias SharingStrategy = DriverSharingStrategy
 
     private let _lock = NSRecursiveLock()
@@ -53,8 +53,8 @@ public class ActivityIndicator: SharedSequenceConvertibleType {
     }
 
     // swiftlint:disable multiple_closures_with_trailing_closure
-    fileprivate func trackActivityOfObservable<O: ObservableConvertibleType>(_ source: O) -> Observable<O.Element> {
-        return Observable.using({ () -> ActivityToken<O.Element> in
+    fileprivate func trackActivityOfObservable<O: ObservableConvertibleType>(_ source: O) -> Observable<O.E> {
+        return Observable.using({ () -> ActivityToken<O.E> in
             self.increment()
             return ActivityToken(source: source.asObservable(), disposeAction: self.decrement)
         }) { token in
@@ -74,13 +74,13 @@ public class ActivityIndicator: SharedSequenceConvertibleType {
         _lock.unlock()
     }
 
-    public func asSharedSequence() -> SharedSequence<SharingStrategy, Element> {
+    public func asSharedSequence() -> SharedSequence<SharingStrategy, E> {
         return _loading
     }
 }
 
 extension ObservableConvertibleType {
-    public func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<Element> {
+    public func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<E> {
         return activityIndicator.trackActivityOfObservable(self)
     }
 }

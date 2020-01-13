@@ -10,7 +10,7 @@ import Moya
 import RxSwift
 import RxCocoa
 
-public extension ObservableType where Element == Moya.Response {
+public extension ObservableType where E == Moya.Response {
     
     func map<T: Decodable>(_ mappableType: T.Type) -> Observable<APIResult<T>> {
         return flatMap { response -> Observable<APIResult<T>> in

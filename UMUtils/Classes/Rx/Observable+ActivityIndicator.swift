@@ -21,11 +21,11 @@ public extension ObservableConvertibleType {
   ///         .flatMap { ... }
   ///         .subscribe { ... }
   ///
-func filter(_ activityIndicator: ActivityIndicator) -> Observable<Self.Element> {
+func filter(_ activityIndicator: ActivityIndicator) -> Observable<Self.E> {
     return self.filter(activityIndicator == true)
   }
 
-func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> Observable<Self.Element> {
+func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> Observable<Self.E> {
     let (activityIndicator, condition) = activityIndicatorFilter
     return self.asObservable()
       .withLatestFrom(activityIndicator.asObservable().startWith(false)) { ($0, $1) }
@@ -39,12 +39,12 @@ func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> Observable<Se
 // MARK: filter
 extension SharedSequenceConvertibleType {
 
-    public func filter(_ activityIndicator: ActivityIndicator) -> SharedSequence<DriverSharingStrategy, Element> {
+    public func filter(_ activityIndicator: ActivityIndicator) -> SharedSequence<DriverSharingStrategy, E> {
         return self.filter(activityIndicator == true)
     }
 
-    public func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> SharedSequence<DriverSharingStrategy, Element> {
-        let observable: Observable<Self.Element> = self.filter(activityIndicatorFilter)
+    public func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> SharedSequence<DriverSharingStrategy, E> {
+        let observable: Observable<Self.E> = self.filter(activityIndicatorFilter)
         return observable.asDriver(onErrorDriveWith: Driver.never())
     }
 }

@@ -42,7 +42,7 @@ extension ObservableType {
 }
 
 extension ObservableType {
-    public func asFunction(_ disposeBag: DisposeBag) -> (@escaping (Element) -> Void) -> Void  {
+    public func asFunction(_ disposeBag: DisposeBag) -> (@escaping (E) -> Void) -> Void  {
         return { handler in
             self.subscribe(onNext: {
                 handler($0)
@@ -71,8 +71,8 @@ extension SharedSequence where SharingStrategy == DriverSharingStrategy {
 // MARK: - ignoreErrors()
 
 extension ObservableType {
-  public func ignoreErrors() -> Observable<Element> {
-    return self.catchError { error -> Observable<Element> in
+  public func ignoreErrors() -> Observable<E> {
+    return self.catchError { error -> Observable<E> in
       return .empty()
     }
   }
