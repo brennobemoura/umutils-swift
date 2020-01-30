@@ -29,3 +29,38 @@ public extension KeyedDecodingContainer {
         return transform.decode(value)
     }
 }
+
+public extension KeyedDecodingContainer {
+    func decode<T, Transform: DecodableTransform>(_ key: K, using transform: Transform) throws -> [T] where Transform.Input == T {
+
+        return try self.decode([Transform.Output].self, forKey: key).map {
+            guard let object = transform.decode($0) else {
+                throw DecodingError.dataCorruptedError(forKey: key, in: self, debugDescription: "Transformer \(Transform.self) return nil")
+            }
+
+            return object
+        }
+    }
+
+    func decode<T, Transform: DecodableTransform>(_ key: K, using transform: Transform) throws -> [T?] where Transform.Input == T {
+        return try self.decode([Transform.Output].self, forKey: key).map {
+            transform.decode($0)
+        }
+    }
+
+    func decode<T, Transform: DecodableTransform>(_ key: K, using transform: Transform) throws -> [T]? where Transform.Input == T {
+        return try self.decodeIfPresent([Transform.Output].self, forKey: key)?.map {
+            guard let object = transform.decode($0) else {
+                throw DecodingError.dataCorruptedError(forKey: key, in: self, debugDescription: "Transformer \(Transform.self) return nil")
+            }
+
+            return object
+        }
+    }
+
+    func decode<T, Transform: DecodableTransform>(_ key: K, using transform: Transform) throws -> [T?]? where Transform.Input == T {
+        return try self.decodeIfPresent([Transform.Output].self, forKey: key)?.map {
+            transform.decode($0)
+        }
+    }
+}
