@@ -64,8 +64,8 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/Rx/*.swift'
       
       ss.dependency 'UMUtils/Core'
-      ss.dependency 'RxSwift', '>= 4.5', "<= 5.0"
-      ss.dependency 'RxCocoa', '>= 4.5', "<= 5.0"
+      ss.dependency 'RxSwift', '4.5'
+      ss.dependency 'RxCocoa', '4.5'
   end
 
   s.subspec 'MBProgressHUD_Rx' do |ss|
@@ -78,8 +78,8 @@ TODO: Add long description of the pod here.
       ss.source_files = 'UMUtils/Classes/Rx/AIFlatSwitch/**/*.swift'
 
       ss.dependency 'UMUtils/Rx'
-      ss.dependency 'RxSwift', '>= 4.5', "<= 5.0"
-      ss.dependency 'RxCocoa', '>= 4.5', "<= 5.0"
+      ss.dependency 'RxSwift', '4.5'
+      ss.dependency 'RxCocoa', '4.5'
       ss.dependency 'AIFlatSwitch'
   end
 
@@ -101,8 +101,8 @@ TODO: Add long description of the pod here.
   s.subspec 'APIModel' do |ss|
       ss.source_files = 'UMUtils/Classes/APIModel/**/*.swift'
       ss.dependency 'Moya'
-      ss.dependency 'RxSwift', '>= 4.5', "<= 5.0"
-      ss.dependency 'RxCocoa', '>= 4.5', "<= 5.0"
+      ss.dependency 'RxSwift', '4.5'
+      ss.dependency 'RxCocoa', '4.5'
   end
 
 end
