@@ -243,9 +243,13 @@ open class AlertView: View {
             $0.spacing = self.spacing
         }
 
-        self.stackView.addArrangedSubview(ScrollView(content, axis: .vertical))
+        let scrollView = ScrollView(content, axis: .vertical)
+        self.stackView.addArrangedSubview(scrollView)
         self.addSubview(spacer)
         spacer.snp.makeConstraints { $0.edges.equalTo(0) }
+        content.snp.makeConstraints {
+            $0.height.equalTo(scrollView.snp.height).priority(.medium)
+        }
         
         self.applyWidth()
         
