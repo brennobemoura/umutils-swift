@@ -11,14 +11,34 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+private var kTextFieldDisposeBag: UInt = 0
+extension UITextField {
+    var disposeBag: DisposeBag {
+        guard let disposeBag = objc_getAssociatedObject(self, &kTextFieldDisposeBag) as? DisposeBag else {
+            let disposeBag = DisposeBag()
+            objc_setAssociatedObject(self, &kTextFieldDisposeBag, disposeBag, .OBJC_ASSOCIATION_RETAIN)
+            return disposeBag
+        }
+
+        return disposeBag
+    }
+}
+
+private var kNextTextField: UInt = 0
+extension UITextField {
+    var nextText: NextTextField? {
+        get { objc_getAssociatedObject(self, &kNextTextField) as? NextTextField }
+        set { objc_setAssociatedObject(self, &kNextTextField, newValue, .OBJC_ASSOCIATION_RETAIN) }
+    }
+}
+
 public class NextTextField {
 
     private weak var prev: NextTextField?
-    private var next: NextTextField?
+    private weak var next: NextTextField?
     private let isOptional: Bool
 
     private weak var field: UITextField!
-    private let disposeBag: DisposeBag = .init()
     private weak var button: UIButton!
     
     fileprivate init(_ field: UITextField!,_ isOptional: Bool, previous: NextTextField? = nil) {
@@ -30,15 +50,17 @@ public class NextTextField {
     
     @discardableResult
     public func onNext(_ field: UITextField!, isOptional: Bool = false) -> NextTextField {
-        self.next = NextTextField(field, isOptional, previous: self)
-        return self.next!
+        let next = NextTextField(field, isOptional, previous: self)
+        self.next = next
+        return next
     }
 
     private func startListening() {
+        self.field.nextText = self
         self.field?.rx.controlEvent(.editingDidEndOnExit)
-            .subscribe(onNext: { _ in
-                self.nextOrHit()
-            }).disposed(by: self.disposeBag)
+            .subscribe(onNext: { [weak self] _ in
+                self?.nextOrHit()
+            }).disposed(by: self.field.disposeBag)
     }
     
     public static func start(_ field: UITextField, isOptional: Bool = false) -> NextTextField {
