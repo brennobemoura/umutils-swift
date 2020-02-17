@@ -68,12 +68,6 @@ TODO: Add long description of the pod here.
       ss.dependency 'RxCocoa', '4.5'
   end
 
-  s.subspec 'MBProgressHUD_Rx' do |ss|
-      ss.source_files = 'UMUtils/Classes/Rx/MBProgressHUD/**/*.swift'
-
-      ss.dependency 'MBProgressHUD'
-  end
-
   s.subspec 'AIFlatSwitch_Rx' do |ss|
       ss.source_files = 'UMUtils/Classes/Rx/AIFlatSwitch/**/*.swift'
 

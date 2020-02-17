@@ -16,7 +16,6 @@
 		0C1F064C2345016700462EF1 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06382345016700462EF1 /* ActivityIndicator.swift */; };
 		0C1F064D2345016700462EF1 /* AIFlatSwitch+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F063A2345016700462EF1 /* AIFlatSwitch+Rx.swift */; };
 		0C1F064E2345016700462EF1 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */; };
-		0C1F064F2345016700462EF1 /* MBProgressHUD+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F063D2345016700462EF1 /* MBProgressHUD+Rx.swift */; };
 		0C1F06502345016700462EF1 /* Observable+ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F063E2345016700462EF1 /* Observable+ActivityIndicator.swift */; };
 		0C1F06512345016700462EF1 /* RxCLLocationManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F063F2345016700462EF1 /* RxCLLocationManagerDelegateProxy.swift */; };
 		0C1F06522345016700462EF1 /* UIControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06402345016700462EF1 /* UIControl+Rx.swift */; };
@@ -108,7 +107,6 @@
 		0C1F06382345016700462EF1 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		0C1F063A2345016700462EF1 /* AIFlatSwitch+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AIFlatSwitch+Rx.swift"; sourceTree = "<group>"; };
 		0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
-		0C1F063D2345016700462EF1 /* MBProgressHUD+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MBProgressHUD+Rx.swift"; sourceTree = "<group>"; };
 		0C1F063E2345016700462EF1 /* Observable+ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+ActivityIndicator.swift"; sourceTree = "<group>"; };
 		0C1F063F2345016700462EF1 /* RxCLLocationManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCLLocationManagerDelegateProxy.swift; sourceTree = "<group>"; };
 		0C1F06402345016700462EF1 /* UIControl+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Rx.swift"; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 				0C1F06392345016700462EF1 /* AIFlatSwitch */,
 				0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */,
 				0C94C8FF2378848D00EFC2FE /* Activity */,
-				0C1F063C2345016700462EF1 /* MBProgressHUD */,
 				0C1F063E2345016700462EF1 /* Observable+ActivityIndicator.swift */,
 				0C1F063F2345016700462EF1 /* RxCLLocationManagerDelegateProxy.swift */,
 				0C1F06402345016700462EF1 /* UIControl+Rx.swift */,
@@ -252,14 +249,6 @@
 				0C1F063A2345016700462EF1 /* AIFlatSwitch+Rx.swift */,
 			);
 			path = AIFlatSwitch;
-			sourceTree = "<group>";
-		};
-		0C1F063C2345016700462EF1 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				0C1F063D2345016700462EF1 /* MBProgressHUD+Rx.swift */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		0C1F06412345016700462EF1 /* View */ = {
@@ -675,7 +664,6 @@
 				0C1BC43F234D3DAC00D96A55 /* String+Utils.swift in Sources */,
 				0CC7CE9E234509DF00F23145 /* UIView+Border.swift in Sources */,
 				0C1F064D2345016700462EF1 /* AIFlatSwitch+Rx.swift in Sources */,
-				0C1F064F2345016700462EF1 /* MBProgressHUD+Rx.swift in Sources */,
 				0CC7CE9B234509DF00F23145 /* UIImage+Color.swift in Sources */,
 				0C1F06552345016700462EF1 /* CNPPopupTheme+Material.swift in Sources */,
 				0CC7CEAB234509DF00F23145 /* UILabel+Boldify.swift in Sources */,
