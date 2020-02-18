@@ -8,10 +8,24 @@
 
 import Foundation
 
-public enum APIResult<T: Decodable> {
+public protocol APIResultWrapper {
+    var error: Error? { get }
+}
+
+public enum APIResult<T: Decodable>: APIResultWrapper {
     case success(T)
     case stepSuccess(T)
     case error(Error)
     case undefined
     case empty
+}
+
+extension APIResult {
+    var error: Error? {
+        guard case .error(let error) = self else {
+            return nil
+        }
+
+        return error
+    }
 }
