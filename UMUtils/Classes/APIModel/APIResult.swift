@@ -20,7 +20,7 @@ public enum APIResult<T: Decodable>: APIResultWrapper {
     case empty
 }
 
-extension APIResult {
+public extension APIResult {
     var error: Error? {
         guard case .error(let error) = self else {
             return nil
