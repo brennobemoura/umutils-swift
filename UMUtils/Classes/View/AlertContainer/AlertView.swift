@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import SnapKit
+import EasyAnchor
 import UIContainer
 
-open class AlertView: View {
+open class AlertView: UIContainer.View {
     private var contentSV: UIStackView!
     private var stackView: UIStackView!
     private weak var spacer: SpacerView!
@@ -27,9 +27,16 @@ open class AlertView: View {
     }
     
     public func updateHeight(_ view: UIView!, height: CGFloat) {
-        view.snp.remakeConstraints { make in
-            make.height.equalTo(height)
+        if let heightConstraint = view.anchor.find(.height) {
+            heightConstraint.constant = height
+            return
         }
+
+        activate(
+            view.anchor
+                .height
+                .equal.to(height)
+        )
     }
     
     open func createImage(_ image: UIImage) -> UIImageView {
@@ -54,7 +61,7 @@ open class AlertView: View {
             self.imageView?.image = image
         }
 
-        self.contentSV.insertArrangedSubview(self.imageView!, at: 0)
+        AddSubview(self.contentSV).insertArrangedSubview(self.imageView!, at: 0)
     }
     
     // MARK: Alert Title
@@ -83,7 +90,7 @@ open class AlertView: View {
 
         self.titleLabel?.text = text
 
-        self.contentSV.insertArrangedSubview(self.titleLabel!, at: self.position(for: 1))
+        AddSubview(self.contentSV).insertArrangedSubview(self.titleLabel!, at: self.position(for: 1))
     }
     
     // MARK: Alert Subtitle
@@ -130,11 +137,11 @@ open class AlertView: View {
         }
         
         if label.superview == nil {
-            stackView.insertArrangedSubview(label, at: stackView.subviews.count)
+            AddSubview(stackView).insertArrangedSubview(label, at: stackView.subviews.count)
         }
         
         if stackView.superview == nil {
-            self.contentSV.insertArrangedSubview(stackView, at: self.position(for: 3))
+            AddSubview(self.contentSV).insertArrangedSubview(stackView, at: self.position(for: 3))
         }
     }
     
@@ -169,7 +176,7 @@ open class AlertView: View {
 
         self.subtitleLabel?.text = text
 
-        self.contentSV.insertArrangedSubview(self.subtitleLabel!, at: self.position(for: 2))
+        AddSubview(self.contentSV).insertArrangedSubview(self.subtitleLabel!, at: self.position(for: 2))
     }
 
     // MARK: Position calculate the index for alertContainer
@@ -201,7 +208,7 @@ open class AlertView: View {
 
     open func addAction(action: AlertButton.Action) {
         if actionSV.superview == nil {
-            self.stackView.addArrangedSubview(actionSV)
+            AddSubview(self.stackView).addArrangedSubview(actionSV)
         }
         
         let view = action.asView()
@@ -212,8 +219,8 @@ open class AlertView: View {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnAction(_:)))
             view.addGestureRecognizer(tapGesture)
         }
-        
-        actionSV.insertArrangedSubview(self.rounder(actionView: view), at: 0)
+
+        AddSubview(actionSV).insertArrangedSubview(self.rounder(actionView: view), at: 0)
     }
     
     open func rounder(actionView: UIView) -> RounderView {
@@ -244,12 +251,18 @@ open class AlertView: View {
         }
 
         let scrollView = ScrollView(content, axis: .vertical)
-        self.stackView.addArrangedSubview(scrollView)
-        self.addSubview(spacer)
-        spacer.snp.makeConstraints { $0.edges.equalTo(0) }
-        content.snp.makeConstraints {
-            $0.height.equalTo(scrollView.snp.height).priority(.medium)
-        }
+        AddSubview(self.stackView).addArrangedSubview(scrollView)
+        AddSubview(self).addSubview(spacer)
+
+        activate(
+            spacer.anchor
+                .edges,
+
+            content.anchor
+                .height
+                .equal.to(scrollView.anchor.height)
+                .priority(.init(500))
+        )
         
         self.applyWidth()
         
@@ -281,9 +294,11 @@ open class AlertView: View {
     open var alertWidth: CGFloat = defaultWidth
     
     private final func applyWidth() {
-        self.spacer.snp.makeConstraints { make in
-            make.width.equalTo(alertWidth)
-        }
+        activate(
+            self.spacer.anchor
+                .width
+                .equal.to(alertWidth)
+        )
     }
     
     open var actionButtonType: AlertButton.Action.Type {

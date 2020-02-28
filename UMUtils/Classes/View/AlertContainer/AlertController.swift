@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import UIContainer
+import EasyAnchor
 
 extension AlertView {
     class Container: ContainerView<AlertView> {
@@ -21,24 +22,45 @@ extension AlertView {
                 }
                 
                 if let fadeView = self.view.fadeView {
-                    contentView.addSubview(fadeView) { maker, _ in
-                        maker.edges.equalTo(0)
-                    }
+                    AddSubview(contentView).addSubview(fadeView)
+
+                    activate(
+                        fadeView.anchor
+                            .edges
+                    )
                 }
                 
                 if self.view.useBlur {
-                    contentView.addSubview(BlurView(blur: self.view.blurEffectStyle)) { maker, _ in
-                        maker.edges.equalTo(0)
-                    }
+                    let blurView = BlurView(blur: self.view.blurEffectStyle)
+                    AddSubview(contentView).addSubview(blurView)
+
+                    activate(
+                        blurView.anchor
+                            .edges
+                    )
                 }
-                
-                contentView.addSubview(ContentView.Center(
+
+                let centerView = ContentView.Center(
                     RounderView(view, radius: view.layer.cornerRadius)
-                )) { maker, superview in
-                    maker.top.equalTo(superview.snp.topMargin)
-                    maker.bottom.equalTo(superview.snp.bottomMargin)
-                    maker.leading.trailing.equalTo(0)
-                }
+                )
+
+                AddSubview(contentView).addSubview(centerView)
+
+                activate(
+                    centerView.anchor
+                        .top
+                        .equal.to(contentView.anchor.topMargin),
+
+                    centerView.anchor
+                        .bottom
+                        .equal.to(contentView.anchor.bottomMargin),
+
+                    centerView.anchor
+                        .leading
+                        .trailing
+                        .equal
+                        .constant(0)
+                )
                 
                 let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnBackground))
                 contentView.addGestureRecognizer(tap)
@@ -68,9 +90,13 @@ extension AlertView {
 extension AlertView: ViewControllerType {
     public var content: ViewControllerMaker {
         .dynamic {
-            $0.view.addSubview(AlertView.Container.init(in: $0, loadHandler: { self })) { maker, _ in
-                maker.edges.equalTo(0)
-            }
+            let containerView = AlertView.Container.init(in: $0, loadHandler: { self })
+            AddSubview($0.view).addSubview(containerView)
+
+            activate(
+                containerView.anchor
+                    .edges
+            )
         }
     }
     
@@ -80,15 +106,5 @@ extension AlertView: ViewControllerType {
         }
         
         self.parent.dismiss(animated: true, completion: nil)
-    }
-}
-
-import SnapKit
-extension UIView {
-    func addSubview(_ view: UIView, maker: (ConstraintMaker, UIView) -> Void) {
-        self.addSubview(view)
-        view.snp.makeConstraints {
-            maker($0, self)
-        }
     }
 }

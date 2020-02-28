@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SnapKit
+import EasyAnchor
 import UIContainer
 
 public class EmptyView: UIView {
@@ -153,16 +153,34 @@ fileprivate extension EmptyView {
         stackView.spacing = 30
 
         let scroll = ScrollView(stackView, axis: .vertical)
-        self.addSubview(scroll)
+        AddSubview(self).addSubview(scroll)
         self.stackView = stackView
 
-        scroll.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(50)
-            make.centerY.equalTo(self.snp.centerY)
-            make.leading.equalTo(50)
-            make.trailing.equalTo(-50)
-            make.bottom.lessThanOrEqualTo(-50)
-        }
+        activate(
+            scroll.anchor
+                .top
+                .greaterThanOrEqual
+                .constant(50),
+
+            scroll.anchor
+                .centerY
+                .equal.to(self.anchor.centerY),
+
+            scroll.anchor
+                .leading
+                .equal
+                .constant(50),
+
+            scroll.anchor
+                .trailing
+                .equal
+                .constant(-50),
+
+            scroll.anchor
+                .bottom
+                .lessThanOrEqual
+                .constant(-50)
+        )
     }
 }
 
@@ -174,26 +192,34 @@ fileprivate extension EmptyView {
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         imageView.layer.borderWidth = 3
 
-        imageContainer.addSubview(imageView)
+        AddSubview(self.imageContainer).addSubview(imageView)
 
         return imageView
     }
 
     func prepareImageView() {
         let containerView = UIView()
-        self.stackView.addArrangedSubview(containerView)
+        AddSubview(self.stackView).addArrangedSubview(containerView)
         self.imageContainer = containerView
 
         self.imageView = self.createImageView()
 
-        self.imageContainer.snp.makeConstraints { make in
-            make.height.equalTo(100)
-        }
+        activate(
+            self.imageContainer.anchor
+                .height
+                .equal.to(100)
+        )
 
-        self.imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(self.imageContainer.snp.height)
-            make.center.equalTo(self.imageContainer.snp.center)
-        }
+        activate(
+            self.imageView.anchor
+                .width
+                .height
+                .equal.to(self.imageContainer.anchor.height),
+
+            self.imageView.anchor
+                .center
+                .equal.to(self.imageContainer.anchor.center)
+        )
 
         self.imageView.layer.cornerRadius = 50
     }
@@ -211,7 +237,7 @@ fileprivate extension EmptyView {
 
         title.lockResizeLayout()
 
-        self.stackView.addArrangedSubview(title)
+        AddSubview(self.stackView).addArrangedSubview(title)
 
         self.titleLabel = title
     }
@@ -227,7 +253,7 @@ fileprivate extension EmptyView {
 
         message.lockResizeLayout()
 
-        self.stackView.addArrangedSubview(message)
+        AddSubview(self.stackView).addArrangedSubview(message)
 
         self.messageLabel = message
     }
@@ -255,22 +281,44 @@ fileprivate extension EmptyView {
         self.actionButton = actionButton
 
         let containerView = UIView()
-        self.stackView.addArrangedSubview(containerView)
+        AddSubview(self.stackView).addArrangedSubview(containerView)
         self.actionContainer = containerView
 
-        containerView.snp.makeConstraints { make in
-            make.height.equalTo(50).priority(.low)
-        }
+        activate(
+            containerView.anchor
+                .height
+                .equal.to(50)
+                .priority(UILayoutPriority.defaultLow.rawValue)
+        )
 
-        containerView.addSubview(actionButton)
+        AddSubview(containerView).addSubview(actionButton)
 
-        actionButton.snp.makeConstraints { make in
-            make.width.equalTo(210)
-            make.leading.greaterThanOrEqualTo(0)
-            make.trailing.lessThanOrEqualTo(0)
-            make.centerX.equalTo(containerView.snp.centerX)
-            make.top.bottom.equalTo(0)
-        }
+
+        activate(
+            actionButton.anchor
+                .width
+                .equal.to(210),
+
+            actionButton.anchor
+                .leading
+                .greaterThanOrEqual
+                .constant(0),
+
+            actionButton.anchor
+                .trailing
+                .lessThanOrEqual
+                .constant(0),
+
+            actionButton.anchor
+                .centerX
+                .equal.to(containerView.anchor.centerX),
+
+            actionButton.anchor
+                .top
+                .bottom
+                .equal
+                .constant(0)
+        )
     }
 }
 
@@ -324,10 +372,12 @@ public protocol EmptyPayload {
 private class Box: UIView {
     init(_ view: UIView) {
         super.init(frame: .zero)
-        self.addSubview(view)
-        view.snp.makeConstraints {
-            $0.edges.equalTo(0)
-        }
+        AddSubview(self).addSubview(view)
+
+        activate(
+            view.anchor
+                .edges
+        )
     }
 
     required init?(coder: NSCoder) {
@@ -420,10 +470,11 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
 
         if let customView = self.payload.customView?() {
             let box = Box(customView)
-            emptyView.addSubview(box)
-            box.snp.makeConstraints {
-                $0.edges.equalTo(0)
-            }
+            AddSubview(emptyView).addSubview(box)
+            activate(
+                box.anchor
+                    .edges
+            )
         } else {
             if let title = self.payload.title?() {
                 emptyView.apply(title: title)
@@ -464,10 +515,12 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
 
         let emptyView = View()
         let box = Box(ContentView.Center(emptyView))
-        contentView.addSubview(box)
-        box.snp.makeConstraints {
-            $0.edges.equalTo(view.snp.edges)
-        }
+        AddSubview(contentView).addSubview(box)
+        activate(
+            box.anchor
+                .edges
+                .equal.to(view.anchor.edges)
+        )
 
         isEmpty? { isEmpty in
             if isEmpty {
