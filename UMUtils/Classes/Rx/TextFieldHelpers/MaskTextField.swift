@@ -31,7 +31,7 @@ public struct MaskTextField {
 
         textField.rx.text.startWith(textField.text)
             .subscribe(onNext: { [weak textField, mask] text in
-                let masked = text?.applyMask(mask)
+                let masked = text?.mask(self.mask)
                 if masked != text {
                     textField?.text = masked
                 }

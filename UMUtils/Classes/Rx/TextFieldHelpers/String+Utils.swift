@@ -12,7 +12,7 @@ indirect public enum MaskType {
     case raw(String)
     case numeric(String)
     case or(MaskType, MaskType)
-    
+
     var mask: String? {
         switch self {
         case .raw(let mask):
@@ -26,7 +26,7 @@ indirect public enum MaskType {
 }
 
 public extension String {
-    private func applyMask(_ mask: String) -> String {
+    private func applyMask(_ mask: String) -> (String, isValid: Bool) {
         var string = self
         mask.enumerated()
             .filter { $0.element != "#" }
@@ -34,7 +34,7 @@ public extension String {
                 guard let beforeIndex = string.index(string.endIndex, offsetBy: -1, limitedBy: string.startIndex) else {
                      return
                 }
-                
+
                 if let index = string.index(string.startIndex, offsetBy: mask.offset, limitedBy: beforeIndex) {
                     if let char = string.enumerated().first(where: {$0.offset == mask.offset}), char.element == mask.element {
                         return
@@ -42,11 +42,12 @@ public extension String {
                     string.insert(mask.element, at: index)
                 }
         }
-        
-        return String(string.prefix(mask.count))
+
+        return (String(string.prefix(mask.count)), string.count <= mask.count)
     }
-    
-    func applyMask(_ maskType: MaskType) -> String {
+
+    @discardableResult
+    func applyMask(_ maskType: MaskType) -> (String, isValid: Bool) {
         switch maskType {
         case .raw(let mask):
             return self.applyMask(mask)
@@ -56,11 +57,15 @@ public extension String {
                 .applyMask(mask)
         case .or(let left, let right):
             let leftMasked = self.applyMask(left)
-            if leftMasked.endIndex < self.endIndex {
+            if !leftMasked.1 {
                 return self.applyMask(right)
             }
-            
+
             return leftMasked
         }
+    }
+
+    func mask(_ mask: MaskType) -> String {
+        return self.applyMask(mask).0
     }
 }
