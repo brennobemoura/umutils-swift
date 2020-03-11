@@ -19,7 +19,7 @@ public extension Response {
         do {
             return .success(try JSONDecoder().decode(T.self, from: self.data))
         } catch {
-            print("[Decoding \(T.self)] error \(error)")
+            APIErrorManager.shared?.didReviceError(error)
             return APIResult.error(error)
         }
     }

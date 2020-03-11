@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct APIException: Decodable {
+public struct APIException: Codable {
     
     public let line: Int
     public let severity: String
@@ -36,6 +36,16 @@ public struct APIException: Decodable {
         self.type = (try? container.decode(.type)) ?? ""
         self.file = (try? container.decode(.file)) ?? ""
         self.trace = try? container.decode(.trace)
+    }
+
+    public func encode(to encoder: Encoder) {
+        let container = encoder.container(keyedBy: CodingKeys.self).wrapper
+
+        self.line >- container[.line]
+        self.message >- container[.message]
+        self.severity >- container[.severity]
+        self.type >- container[.type]
+        self.trace >- container[.trace]
     }
 }
 

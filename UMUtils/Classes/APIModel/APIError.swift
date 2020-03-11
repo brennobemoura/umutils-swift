@@ -7,21 +7,20 @@
 //
 
 import Foundation
-// swiftlint:disable superfluous_disable_command identifier_name
 
-public struct APIError: Decodable {
-    private let error: Error
+public struct APIError: Codable {
+    private let type: APIErrorType
 
     public var code: Int {
-        return self.error.code
+        return self.type.code
     }
 
     public var title: String {
-        return self.error.message
+        return self.type.message
     }
 
     public var messages: [String]? {
-        return self.error.messages
+        return self.type.messages
     }
     
     public let exception: APIException?
@@ -37,8 +36,45 @@ public struct APIError: Decodable {
     }
     
     public init(code: Int, title: String, messages: [String]? = nil, exception: APIException? = nil) {
-        self.error = .init(code: code, message: title, messages: messages)
+        self.type = .api(.init(code: code, message: title, messages: messages))
         self.exception = exception
+    }
+
+    public init(error: Swift.Error) {
+        self.type = .error(error)
+        self.exception = nil
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.type = .api(try container.decode(.error))
+        self.exception = try container.decode(.exception)
+    }
+
+    public func encode(to encoder: Encoder) {
+        let container = try encoder.container(keyedBy: EncodingKeys.self).wrapper
+
+        if case .api(let error) = type {
+            error >- container[.error]
+        }
+        self.exception >- container[.exception]
+        self.message >- container[.message]
+    }
+
+    public var nsError: NSError {
+        NSError(
+            domain: "\(Bundle.main.bundleIdentifier ?? "com.umobi.umutils").apierror",
+            code: self.code,
+            userInfo: {
+                switch self.type {
+                case .api:
+                    return self.toJSON()
+                case .error(let error):
+                    return (error as NSError).userInfo
+                }
+            }()
+        )
     }
 }
 
@@ -46,6 +82,12 @@ extension APIError {
     enum CodingKeys: String, CodingKey {
         case error
         case exception
+    }
+
+    enum EncodingKeys: String, CodingKey {
+        case error
+        case exception
+        case message
     }
 }
 
@@ -73,6 +115,38 @@ extension APIError {
             case code
             case message
             case messages
+        }
+    }
+
+    private enum APIErrorType {
+        case api(APIError.Error)
+        case error(Swift.Error)
+
+        var code: Int {
+            switch self {
+            case .api(let error):
+                return error.code
+            case .error(let error):
+                return (error as NSError).code
+            }
+        }
+
+        var message: String {
+            switch self {
+            case .api(let error):
+                return error.message
+            case .error(let error):
+                return (error as NSError).localizedDescription
+            }
+        }
+
+        var messages: [String] {
+            switch self {
+            case .api(let error):
+                return error.messages ?? []
+            case .error(let error):
+                return []
+            }
         }
     }
 }

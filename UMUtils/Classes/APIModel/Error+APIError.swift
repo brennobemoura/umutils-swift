@@ -18,44 +18,50 @@ public extension Swift.Error {
     }
 }
 
-public extension Swift.Error {
-    
-    var apiError: APIError? {
+public protocol APIErrorDelegate {
+    func didReviceError(_ error: Swift.Error)
+}
+
+public class APIErrorManager {
+    static var shared: APIErrorManager?
+    let delegate: APIErrorDelegate
+
+    init(_ delegate: APIErrorDelegate) {
+        self.delegate = delegate
+    }
+
+    public static func tracked(by delegate: APIErrorDelegate) {
+        self.shared = .init(delegate)
+    }
+
+    func didReviceError(_ error: Swift.Error) {
+        self.delegate.didReviceError(error)
+    }
+}
+
+public extension APIError {
+    static func mount(from error: Swift.Error) -> APIError? {
         do {
-            if let moyaError = self as? MoyaError {
+            switch error {
+            case let moyaError as MoyaError:
                 if let response = moyaError.response {
                     return try JSONDecoder().decode(APIError.self, from: response.data)
-                } else {
-                    if case .underlying((let error, _)) = moyaError {
-                        return APIError(
-                            code: -1,
-                            title: error.localizedDescription
-                        )
-                    }
-
-                    return APIError(
-                        code: -2,
-                        title: moyaError.localizedDescription
-                    )
                 }
 
-            } else if let decodingError = self as? DecodingError {
+                if case .underlying((let error, _)) = moyaError {
+                    return .init(error: error)
+                }
 
-                return APIError(
-                    code: -3,
-                    title: "Houve um erro ao processar a resposta do servidor. Tente novamente.",
-                    exception: .init(
-                        line: 0,
-                        severity: "",
-                        type: "DecodingError",
-                        file: decodingError.helpAnchor ?? "nil",
-                        message: decodingError.failureReason ?? "nil",
-                        trace: nil
-                ))
-           }
+                return .init(error: moyaError)
+
+            case let decodingError as DecodingError:
+                return .init(error: decodingError)
+
+            default:
+                return nil
+            }
         } catch {
-            print("[APIModel] Error: \(error)")
+            return .init(error: error)
         }
-        return nil
     }
 }
