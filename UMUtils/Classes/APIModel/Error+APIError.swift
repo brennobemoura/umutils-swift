@@ -23,7 +23,7 @@ public protocol APIErrorDelegate {
 }
 
 public class APIErrorManager {
-    static var shared: APIErrorManager?
+    private(set) static var shared: APIErrorManager?
     let delegate: APIErrorDelegate
 
     init(_ delegate: APIErrorDelegate) {
@@ -61,7 +61,7 @@ public extension APIError {
                 return nil
             }
         } catch {
-            return .init(error: error)
+            return nil
         }
     }
 }

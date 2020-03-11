@@ -16,6 +16,7 @@ public extension ObservableType where E == Moya.Response {
         return flatMap { response -> Observable<APIResult<T>> in
             return .just(response.mapApi(mappableType))
         }.do(onError: { error in
+            APIErrorManager.shared?.didReviceError(error)
             print("[Decoding \(T.self)] error \(error)")
         })
     }

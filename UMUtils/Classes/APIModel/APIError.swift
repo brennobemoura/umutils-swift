@@ -49,7 +49,7 @@ public struct APIError: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.type = .api(try container.decode(.error))
-        self.exception = try container.decode(.exception)
+        self.exception = try? container.decode(.exception)
     }
 
     public func encode(to encoder: Encoder) {
