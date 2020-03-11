@@ -44,6 +44,7 @@ public struct APIException: Codable {
         self.line >- container[.line]
         self.message >- container[.message]
         self.severity >- container[.severity]
+        self.file >- container[.file]
         self.type >- container[.type]
         self.trace >- container[.trace]
     }
