@@ -79,6 +79,11 @@
 		0CC7CEAF2345207F00F23145 /* ViewModelBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CEAE2345207F00F23145 /* ViewModelBindable.swift */; };
 		0CC7CEB1234520C100F23145 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CEB0234520C100F23145 /* ViewModel.swift */; };
 		0CF74E6D242D4FE500A02A74 /* OrderedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF74E6C242D4FE500A02A74 /* OrderedArray.swift */; };
+		0CF74E74242D515E00A02A74 /* Date+Style+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF74E6F242D515E00A02A74 /* Date+Style+Time.swift */; };
+		0CF74E75242D515E00A02A74 /* Date+Style+WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF74E70242D515E00A02A74 /* Date+Style+WeekDay.swift */; };
+		0CF74E76242D515E00A02A74 /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF74E71242D515E00A02A74 /* Date+Components.swift */; };
+		0CF74E77242D515E00A02A74 /* Date+Style+Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF74E72242D515E00A02A74 /* Date+Style+Month.swift */; };
+		0CF74E78242D515E00A02A74 /* Date+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF74E73242D515E00A02A74 /* Date+Style.swift */; };
 		1C55EF6627F11517308758F6C177B9F9 /* Pods-UMUtils_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 619EBD0313DF282D278CCBC5685BF195 /* Pods-UMUtils_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B19FF07648E45275843C3B256629DD3 /* UMUtils-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1878A3C78BFE5D6DBD5EAE30D598D70F /* UMUtils-dummy.m */; };
 		8B0AECEC203F19F3710C3C19D8E983AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -171,6 +176,11 @@
 		0CC7CEAE2345207F00F23145 /* ViewModelBindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBindable.swift; sourceTree = "<group>"; };
 		0CC7CEB0234520C100F23145 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		0CF74E6C242D4FE500A02A74 /* OrderedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedArray.swift; sourceTree = "<group>"; };
+		0CF74E6F242D515E00A02A74 /* Date+Style+Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Style+Time.swift"; sourceTree = "<group>"; };
+		0CF74E70242D515E00A02A74 /* Date+Style+WeekDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Style+WeekDay.swift"; sourceTree = "<group>"; };
+		0CF74E71242D515E00A02A74 /* Date+Components.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
+		0CF74E72242D515E00A02A74 /* Date+Style+Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Style+Month.swift"; sourceTree = "<group>"; };
+		0CF74E73242D515E00A02A74 /* Date+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Style.swift"; sourceTree = "<group>"; };
 		15FA65862D6366C8644922081EDBF6BF /* UMUtils-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UMUtils-Info.plist"; sourceTree = "<group>"; };
 		1878A3C78BFE5D6DBD5EAE30D598D70F /* UMUtils-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UMUtils-dummy.m"; sourceTree = "<group>"; };
 		1E29203DE8839D79DBEB13064CE175A7 /* Pods-UMUtils_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UMUtils_Tests-frameworks.sh"; sourceTree = "<group>"; };
@@ -325,6 +335,7 @@
 		0CC7CE64234509DE00F23145 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0CF74E6E242D514600A02A74 /* DateComponents */,
 				0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */,
 				0CF74E6C242D4FE500A02A74 /* OrderedArray.swift */,
 				0CC7CE68234509DE00F23145 /* Views */,
@@ -388,6 +399,18 @@
 			);
 			name = ViewModel;
 			path = UMUtils/Classes/ViewModel;
+			sourceTree = "<group>";
+		};
+		0CF74E6E242D514600A02A74 /* DateComponents */ = {
+			isa = PBXGroup;
+			children = (
+				0CF74E71242D515E00A02A74 /* Date+Components.swift */,
+				0CF74E73242D515E00A02A74 /* Date+Style.swift */,
+				0CF74E72242D515E00A02A74 /* Date+Style+Month.swift */,
+				0CF74E6F242D515E00A02A74 /* Date+Style+Time.swift */,
+				0CF74E70242D515E00A02A74 /* Date+Style+WeekDay.swift */,
+			);
+			path = DateComponents;
 			sourceTree = "<group>";
 		};
 		13DD37A319DDFC62317ADA9F9041E37F /* Support Files */ = {
@@ -627,6 +650,7 @@
 				0CC7CE93234509DE00F23145 /* String+Localized.swift in Sources */,
 				0CC7CE91234509DE00F23145 /* Number+Formats.swift in Sources */,
 				0C1F06512345016700462EF1 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
+				0CF74E75242D515E00A02A74 /* Date+Style+WeekDay.swift in Sources */,
 				0CC7CE9C234509DF00F23145 /* String+Validations.swift in Sources */,
 				0C1F06572345016700462EF1 /* TransitionController+ViewControllers.swift in Sources */,
 				0C6CBF8E234BEA3300F49216 /* AlertButton.swift in Sources */,
@@ -644,6 +668,8 @@
 				0CC7CE9D234509DF00F23145 /* UIImage+Resizing.swift in Sources */,
 				0CC7CEA1234509DF00F23145 /* Date+String.swift in Sources */,
 				0C1F064B2345016700462EF1 /* Rx+Operators.swift in Sources */,
+				0CF74E77242D515E00A02A74 /* Date+Style+Month.swift in Sources */,
+				0CF74E74242D515E00A02A74 /* Date+Style+Time.swift in Sources */,
 				0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */,
 				0CC7CE9F234509DF00F23145 /* String+BoundingRect.swift in Sources */,
 				0C92465423770F77006DAB60 /* IncludeParameters.swift in Sources */,
@@ -653,6 +679,7 @@
 				0CC7CEAA234509DF00F23145 /* UIWindow+ViewControllers.swift in Sources */,
 				0CC7CEA7234509DF00F23145 /* UIButton+Styles.swift in Sources */,
 				0C9AF59923834CE800A22CAC /* Decodable+Extensions.swift in Sources */,
+				0CF74E78242D515E00A02A74 /* Date+Style.swift in Sources */,
 				0CC7CE8E234509DE00F23145 /* Dropable.swift in Sources */,
 				0CC7CEB1234520C100F23145 /* ViewModel.swift in Sources */,
 				0C92465823770F77006DAB60 /* Moya+ObjectMapper.swift in Sources */,
@@ -676,6 +703,7 @@
 				0C6CBF8F234BEA3300F49216 /* AlertController.swift in Sources */,
 				0CC7CEA2234509DF00F23145 /* Date+Time.swift in Sources */,
 				0C1F06522345016700462EF1 /* UIControl+Rx.swift in Sources */,
+				0CF74E76242D515E00A02A74 /* Date+Components.swift in Sources */,
 				0C1BC43D234D3DAC00D96A55 /* MaskTextField.swift in Sources */,
 				0CC7CE90234509DE00F23145 /* UIViewController+Storyboard.swift in Sources */,
 				0CC7CEA0234509DF00F23145 /* Double+Round.swift in Sources */,
