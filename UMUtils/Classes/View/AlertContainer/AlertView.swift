@@ -27,7 +27,7 @@ open class AlertView: UIContainer.View {
     }
     
     public func updateHeight(_ view: UIView!, height: CGFloat) {
-        if let heightConstraint = view.anchor.find(.height) {
+        if let heightConstraint = view.anchor.height.find().first {
             heightConstraint.constant = height
             return
         }
