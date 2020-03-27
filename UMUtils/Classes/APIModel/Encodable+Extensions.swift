@@ -60,7 +60,7 @@ public func >- <T: Encodable, K: CodingKey>(left: T?, right: KeyedEncodingContai
     guard let left = left else {
         return
     }
-
+    
     try? right.container.encode(left, forKey: right.actualKey)
 }
 

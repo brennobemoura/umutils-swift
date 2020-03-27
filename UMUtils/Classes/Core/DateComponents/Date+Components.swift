@@ -28,6 +28,10 @@ public extension Date {
             return Calendar.current.component(.month, from: self.date)
         }
 
+        public var year: Int {
+            return Calendar.current.component(.year, from: self.date)
+        }
+
         public var hour: Int {
             return Calendar.current.component(.hour, from: self.date)
         }
