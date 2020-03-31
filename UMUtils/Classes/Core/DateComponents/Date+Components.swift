@@ -68,6 +68,8 @@ public extension Date {
                 return self.second
             case .nanosecond:
                 return self.nanosecond
+            case .year:
+                return self.year
             default:
                 return 0
             }
@@ -93,6 +95,7 @@ public extension Date.Components {
         public var minute: Int
         public var second: Int
         public var nanosecond: Int
+        public var year: Int
 
         fileprivate init(_ components: Date.Components) {
             self.day = components.day
@@ -101,6 +104,7 @@ public extension Date.Components {
             self.minute = components.minute
             self.second = components.second
             self.nanosecond = components.nanosecond
+            self.year = components.year
         }
 
         fileprivate var array: [(Calendar.Component, Int)] {
@@ -110,7 +114,8 @@ public extension Date.Components {
                 (.hour, self.hour),
                 (.minute, self.minute),
                 (.second, self.second),
-                (.nanosecond, self.nanosecond)
+                (.nanosecond, self.nanosecond),
+                (.year, self.year)
             ]
         }
 
