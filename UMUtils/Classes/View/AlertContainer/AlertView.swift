@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import EasyAnchor
+import ConstraintBuilder
 import UIContainer
 
 open class AlertView: UIContainer.View {
@@ -27,15 +27,15 @@ open class AlertView: UIContainer.View {
     }
     
     public func updateHeight(_ view: UIView!, height: CGFloat) {
-        if let heightConstraint = view.anchor.height.find().first {
+        if let heightConstraint = view.cbuild.height.find().first {
             heightConstraint.constant = height
             return
         }
 
-        activate(
-            view.anchor
+        Constraintable.activate(
+            view.cbuild
                 .height
-                .equal.to(height)
+                .equalTo(height)
         )
     }
     
@@ -254,13 +254,13 @@ open class AlertView: UIContainer.View {
         AddSubview(self.stackView).addArrangedSubview(scrollView)
         AddSubview(self).addSubview(spacer)
 
-        activate(
-            spacer.anchor
+        Constraintable.activate(
+            spacer.cbuild
                 .edges,
 
-            content.anchor
+            content.cbuild
                 .height
-                .equal.to(scrollView.anchor.height)
+                .equalTo(scrollView)
                 .priority(.init(500))
         )
         
@@ -294,10 +294,10 @@ open class AlertView: UIContainer.View {
     open var alertWidth: CGFloat = defaultWidth
     
     private final func applyWidth() {
-        activate(
-            self.spacer.anchor
+        Constraintable.activate(
+            self.spacer.cbuild
                 .width
-                .equal.to(alertWidth)
+                .equalTo(alertWidth)
         )
     }
     

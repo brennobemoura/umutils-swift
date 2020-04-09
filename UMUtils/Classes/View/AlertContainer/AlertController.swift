@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import UIContainer
-import EasyAnchor
+import ConstraintBuilder
 
 extension AlertView {
     class Container: ContainerView<AlertView> {
@@ -24,8 +24,8 @@ extension AlertView {
                 if let fadeView = self.view.fadeView {
                     AddSubview(contentView).addSubview(fadeView)
 
-                    activate(
-                        fadeView.anchor
+                    Constraintable.activate(
+                        fadeView.cbuild
                             .edges
                     )
                 }
@@ -34,8 +34,8 @@ extension AlertView {
                     let blurView = BlurView(blur: self.view.blurEffectStyle)
                     AddSubview(contentView).addSubview(blurView)
 
-                    activate(
-                        blurView.anchor
+                    Constraintable.activate(
+                        blurView.cbuild
                             .edges
                     )
                 }
@@ -46,20 +46,19 @@ extension AlertView {
 
                 AddSubview(contentView).addSubview(centerView)
 
-                activate(
-                    centerView.anchor
+                Constraintable.activate(
+                    centerView.cbuild
                         .top
-                        .equal.to(contentView.anchor.topMargin),
+                        .equalTo(contentView.cbuild.topMargin),
 
-                    centerView.anchor
+                    centerView.cbuild
                         .bottom
-                        .equal.to(contentView.anchor.bottomMargin),
+                        .equalTo(contentView.cbuild.bottomMargin),
 
-                    centerView.anchor
+                    centerView.cbuild
                         .leading
                         .trailing
-                        .equal
-                        .constant(0)
+                        .equalTo(0)
                 )
                 
                 let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapOnBackground))
@@ -93,8 +92,8 @@ extension AlertView: ViewControllerType {
             let containerView = AlertView.Container.init(in: $0, loadHandler: { self })
             AddSubview($0.view).addSubview(containerView)
 
-            activate(
-                containerView.anchor
+            Constraintable.activate(
+                containerView.cbuild
                     .edges
             )
         }

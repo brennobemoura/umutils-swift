@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import EasyAnchor
+import ConstraintBuilder
 import UIContainer
 
 public class EmptyView: UIView {
@@ -156,30 +156,20 @@ fileprivate extension EmptyView {
         AddSubview(self).addSubview(scroll)
         self.stackView = stackView
 
-        activate(
-            scroll.anchor
+        Constraintable.activate(
+            scroll.cbuild
                 .top
-                .greaterThanOrEqual
-                .constant(50),
-
-            scroll.anchor
-                .centerY
-                .equal.to(self.anchor.centerY),
-
-            scroll.anchor
-                .leading
-                .equal
-                .constant(50),
-
-            scroll.anchor
-                .trailing
-                .equal
-                .constant(-50),
-
-            scroll.anchor
                 .bottom
-                .lessThanOrEqual
-                .constant(-50)
+                .greaterThanOrEqualTo(50),
+
+            scroll.cbuild
+                .centerY
+                .equalTo(self.cbuild.centerY),
+
+            scroll.cbuild
+                .leading
+                .trailing
+                .equalTo(50)
         )
     }
 }
@@ -204,21 +194,21 @@ fileprivate extension EmptyView {
 
         self.imageView = self.createImageView()
 
-        activate(
-            self.imageContainer.anchor
+        Constraintable.activate(
+            self.imageContainer.cbuild
                 .height
-                .equal.to(100)
+                .equalTo(100)
         )
 
-        activate(
-            self.imageView.anchor
+        Constraintable.activate(
+            self.imageView.cbuild
                 .width
                 .height
-                .equal.to(self.imageContainer.anchor.height),
+                .equalTo(self.imageContainer.cbuild.height),
 
-            self.imageView.anchor
+            self.imageView.cbuild
                 .center
-                .equal.to(self.imageContainer.anchor.center)
+                .equalTo(self.imageContainer)
         )
 
         self.imageView.layer.cornerRadius = 50
@@ -284,40 +274,34 @@ fileprivate extension EmptyView {
         AddSubview(self.stackView).addArrangedSubview(containerView)
         self.actionContainer = containerView
 
-        activate(
-            containerView.anchor
+        Constraintable.activate(
+            containerView.cbuild
                 .height
-                .equal.to(50)
-                .priority(UILayoutPriority.defaultLow.rawValue)
+                .equalTo(50)
+                .priority(.defaultLow)
         )
 
         AddSubview(containerView).addSubview(actionButton)
 
 
-        activate(
-            actionButton.anchor
+        Constraintable.activate(
+            actionButton.cbuild
                 .width
-                .equal.to(210),
+                .equalTo(210),
 
-            actionButton.anchor
+            actionButton.cbuild
                 .leading
-                .greaterThanOrEqual
-                .constant(0),
-
-            actionButton.anchor
                 .trailing
-                .lessThanOrEqual
-                .constant(0),
+                .greaterThanOrEqualTo(0),
 
-            actionButton.anchor
+            actionButton.cbuild
                 .centerX
-                .equal.to(containerView.anchor.centerX),
+                .equalTo(containerView),
 
-            actionButton.anchor
+            actionButton.cbuild
                 .top
                 .bottom
-                .equal
-                .constant(0)
+                .equalTo(0)
         )
     }
 }
@@ -374,8 +358,8 @@ private class Box: UIView {
         super.init(frame: .zero)
         AddSubview(self).addSubview(view)
 
-        activate(
-            view.anchor
+        Constraintable.activate(
+            view.cbuild
                 .edges
         )
     }
@@ -471,8 +455,8 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         if let customView = self.payload.customView?() {
             let box = Box(customView)
             AddSubview(emptyView).addSubview(box)
-            activate(
-                box.anchor
+            Constraintable.activate(
+                box.cbuild
                     .edges
             )
         } else {
@@ -516,10 +500,10 @@ public class EmptyFactory<View: UIView & EmptyPayload> {
         let emptyView = View()
         let box = Box(ContentView.Center(emptyView))
         AddSubview(contentView).addSubview(box)
-        activate(
-            box.anchor
+        Constraintable.activate(
+            box.cbuild
                 .edges
-                .equal.to(view.anchor.edges)
+                .equalTo(view)
         )
 
         isEmpty? { isEmpty in

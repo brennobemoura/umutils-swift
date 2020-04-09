@@ -49,13 +49,13 @@ TODO: Add long description of the pod here.
 
       ss.dependency 'UMUtils/Core'
       ss.dependency 'Material'
-      ss.dependency 'EasyAnchor'
+      ss.dependency 'ConstraintBuilder'
   end
   
   s.subspec 'View' do |ss|
       ss.source_files = 'UMUtils/Classes/View/**/*.swift'
 
-      ss.dependency 'EasyAnchor'
+      ss.dependency 'ConstraintBuilder'
       ss.dependency 'UIContainer', '~> 1.2.0-beta.3'
       ss.platform = :ios, '10.0'
   end
